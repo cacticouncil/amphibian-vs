@@ -71,8 +71,7 @@ namespace DropletExtension.Properties {
         /// * modification, are permitted provided that the following conditions are met:
         /// *     * Redistributions of source code must retain the above copyright
         /// *       notice, this list of conditions and the following disclaimer.
-        /// *     * Redistributions in binary form must reproduce the above copyright
-        /// *   [rest of string was truncated]&quot;;.
+        /// *     * Redistributions in binary form must reproduce the above copy [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string ace {
             get {
@@ -88,7 +87,7 @@ namespace DropletExtension.Properties {
         /// * Copyright 2011, Jeremy Ashkenas
         /// * Released under the MIT License
         /// */
-        ///(function(root){var CoffeeScript=function(){function require(e){return require[e]}return require[&quot;./helpers&quot;]=function(){var e={},t={exports:e};return function(){var t,n,i,r,o,s,a;e.starts=function(e,t,n){return t===e.substr(n,t.length)},e.ends=function(e,t,n){var i;return i=t.length,t===e.substr(e.length-i-(n||0),i)},e.repeat=o=function(e,t){var n;for(n=&quot;&quot;;t&gt;0;)1&amp;t&amp;&amp;(n+ [rest of string was truncated]&quot;;.
+        ///(function(root){var CoffeeScript=function(){function require(e){return require[e]}return require[&quot;./helpers&quot;]=function(){var e={},t={exports:e};return function(){var t,n,i,r,o,s,a;e.starts=function(e,t,n){return t===e.substr(n,t.length)},e.ends=function(e,t,n){var i;return i=t.length,t===e.substr(e.length-i-(n||0),i)},e.repeat=o=function(e,t){var n;for(n=&quot;&quot;;t&gt;0;)1 [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string coffee_script {
             get {
@@ -108,10 +107,8 @@ namespace DropletExtension.Properties {
         ///  margin-top: -2px;
         ///  margin-left: -1px;
         ///  opacity: 0.85;
-        ///  -webkit-filter: drop-shadow( 5px 5px 5px #888 );
-        ///  filter: drop-shadow( 5px 5px 5px #888 ); /* Same syntax as box-shadow */
-        ///}
-        ///.droplet-palette-canva [rest of string was truncated]&quot;;.
+        ///  -webkit-filter: drop-shadow( 5px 5px 5px rgba(0, 0, 0, 0.5) );
+        ///  filter: drop-shadow( 5px 5px 5px rgba(0, 0, 0, 0.5) ); /* Same syntax a [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string droplet {
             get {
@@ -120,21 +117,22 @@ namespace DropletExtension.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to (function(f){if(typeof exports===&quot;object&quot;&amp;&amp;typeof module!==&quot;undefined&quot;){module.exports=f()}else if(typeof define===&quot;function&quot;&amp;&amp;define.amd){define([],f)}else{var g;if(typeof window!==&quot;undefined&quot;){g=window}else if(typeof global!==&quot;undefined&quot;){g=global}else if(typeof self!==&quot;undefined&quot;){g=self}else{g=this}g.droplet = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require==&quot;function&quot;&amp;&amp;require;if(!u&amp;&amp;a)return a(o,!0);if(i)return i(o,!0);var  [rest of string was truncated]&quot;;.
+        ///   Looks up a localized string similar to /* Droplet. | (c) 2016 Anthony Bau. | MIT License.
+        /// */
+        ///!function(a){if(&quot;object&quot;==typeof exports&amp;&amp;&quot;undefined&quot;!=typeof module)module.exports=a();else if(&quot;function&quot;==typeof define&amp;&amp;define.amd)define([],a);else{var b;b=&quot;undefined&quot;!=typeof window?window:&quot;undefined&quot;!=typeof global?global:&quot;undefined&quot;!=typeof self?self:this,b.droplet=a()}}(function(){var define,module,exports;return function a(b,c,d){function e(g,h){if(!c[g]){if(!b[g]){var i=&quot;function&quot;==typeof require&amp;&amp;require;if(!h&amp;&amp;i)return i(g,!0);if(f)return f( [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string droplet_full {
+        internal static string droplet_full_min {
             get {
-                return ResourceManager.GetString("droplet_full", resourceCulture);
+                return ResourceManager.GetString("droplet_full_min", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
+        ///   Looks up a localized string similar to .droplet_error,.droplet_info,.droplet_warning{background-repeat:no-repeat}.droplet-tooltip,text{white-space:pre;pointer-events:none}.droplet-loading-glyph:after,.droplet-loading-glyph:before{content:&apos;&apos;;left:0;position:absolute}.droplet-drag-canvas,.droplet-highlight-canvas,.droplet-lasso-select-canvas,.droplet-main-canvas,.droplet-palette-canvas{position:absolute}.droplet-drag-canvas,.droplet-highlight-canvas,.droplet-lasso-select-canvas,.droplet-main-canvas{top:0}.droplet-drag-canvas{z-index:258;margin-top [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static byte[] example {
+        internal static string droplet_min {
             get {
-                object obj = ResourceManager.GetObject("example", resourceCulture);
-                return ((byte[])(obj));
+                return ResourceManager.GetString("droplet_min", resourceCulture);
             }
         }
         
@@ -145,25 +143,30 @@ namespace DropletExtension.Properties {
         ///    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;/&gt;
         ///    &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;../css/droplet.css&quot;/&gt;
         ///    &lt;link href=&apos;http://fonts.googleapis.com/css?family=VT323&apos; rel=&apos;stylesheet&apos; type=&apos;text/css&apos;&gt;
+        ///    &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;tooltipster/dist/css/tooltipster.bundle.min.css&quot; /&gt;
         ///    &lt;style&gt;
-        ///      #container {
-        ///        position: absolute;
-        ///        top: 45; bottom: 25; right: 25; left: 25;
-        ///      }
-        ///      #left-panel {
-        ///        position: absolute;
-        ///        top: 0; bottom: 0; width: 500px; left: 0;
-        ///       [rest of string was truncated]&quot;;.
+        ///      .tooltipster-sidetip.tooltipster-noir.tooltipster-noir-customized .tooltipster-box {
+        ///         [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string example1 {
+        internal static string example {
             get {
-                return ResourceManager.GetString("example1", resourceCulture);
+                return ResourceManager.GetString("example", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] example1 {
+            get {
+                object obj = ResourceManager.GetObject("example1", resourceCulture);
+                return ((byte[])(obj));
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to /*! jQuery v1.11.1 | (c) 2005, 2014 jQuery Foundation, Inc. | jquery.org/license */
-        ///!function(a,b){&quot;object&quot;==typeof module&amp;&amp;&quot;object&quot;==typeof module.exports?module.exports=a.document?b(a,!0):function(a){if(!a.document)throw new Error(&quot;jQuery requires a window with a document&quot;);return b(a)}:b(a)}(&quot;undefined&quot;!=typeof window?window:this,function(a,b){var c=[],d=c.slice,e=c.concat,f=c.push,g=c.indexOf,h={},i=h.toString,j=h.hasOwnProperty,k={},l=&quot;1.11.1&quot;,m=function(a,b){return new m.fn.init(a,b)},n=/^[\s\uFEFF\xA [rest of string was truncated]&quot;;.
+        ///!function(a,b){&quot;object&quot;==typeof module&amp;&amp;&quot;object&quot;==typeof module.exports?module.exports=a.document?b(a,!0):function(a){if(!a.document)throw new Error(&quot;jQuery requires a window with a document&quot;);return b(a)}:b(a)}(&quot;undefined&quot;!=typeof window?window:this,function(a,b){var c=[],d=c.slice,e=c.concat,f=c.push,g=c.indexOf,h={},i=h.toString,j=h.hasOwnProperty,k={},l=&quot;1.11.1&quot;,m=function(a,b){return new m.fn.init(a,b)},n=/^[\s\uFEFF\x [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string jquery_min {
             get {
@@ -184,7 +187,7 @@ namespace DropletExtension.Properties {
         ///        var identifier = &quot;[$A-Za-z_\\x7f-\\uffff][$\\w\\x7f-\\uffff]*&quot;;
         ///
         ///        var keywords = (
-        ///            &quot;this|t [rest of string was truncated]&quot;;.
+        ///        [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string mode_coffee {
             get {
@@ -206,7 +209,7 @@ namespace DropletExtension.Properties {
         ///            token : &quot;comment.doc.tag&quot;,
         ///            regex : &quot;@[\\w\\d_]+&quot; // TODO: fix email addresses
         ///        }, {
-        ///            token [rest of string was truncated]&quot;;.
+        ///     [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string mode_javascript {
             get {
@@ -236,12 +239,26 @@ namespace DropletExtension.Properties {
         ///color: black;\
         ///}\
         ///.ace-chrome .ace_invisible {\
-        ///color: rgb(191, 191, 191);\
-        ///} [rest of string was truncated]&quot;;.
+        ///color: r [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string theme_chrome {
             get {
                 return ResourceManager.GetString("theme_chrome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /* Droplet.
+        /// * Copyright (c) 2016 Anthony Bau.
+        /// * MIT License.
+        /// *
+        /// * Date: 2016-11-28
+        /// */
+        ///(function(f){if(typeof exports===&quot;object&quot;&amp;&amp;typeof module!==&quot;undefined&quot;){module.exports=f()}else if(typeof define===&quot;function&quot;&amp;&amp;define.amd){define([],f)}else{var g;if(typeof window!==&quot;undefined&quot;){g=window}else if(typeof global!==&quot;undefined&quot;){g=global}else if(typeof self!==&quot;undefined&quot;){g=self}else{g=this}g.droplet = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){ [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string worker {
+            get {
+                return ResourceManager.GetString("worker", resourceCulture);
             }
         }
         
@@ -265,7 +282,7 @@ namespace DropletExtension.Properties {
         ///window.ace = window;
         ///
         ///window.onerror = function(message, file, line, col, err) {
-        ///    console.error(&quot;Worker &quot; + (err ? err.stack : me [rest of string was truncated]&quot;;.
+        ///    console.error(&quot;Worker &quot; + (e [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string worker_coffee {
             get {
@@ -293,7 +310,7 @@ namespace DropletExtension.Properties {
         ///window.ace = window;
         ///
         ///window.onerror = function(message, file, line, col, err) {
-        ///    console.error(&quot;Worker &quot; + (err ? err.stack : me [rest of string was truncated]&quot;;.
+        ///    console.error(&quot;Worker &quot; + (e [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string worker_javascript {
             get {

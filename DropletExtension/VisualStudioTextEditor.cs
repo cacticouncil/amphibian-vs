@@ -34,8 +34,6 @@ namespace DropletExtension
 
         private static string activeWindowFilePath;
 
-        bool eventsMade = false;
-
         /// <summary>
         /// Initializes a new instance of the <see cref="VisualStudioTextEditor"/> class.
         /// </summary>
@@ -79,7 +77,6 @@ namespace DropletExtension
                         // good programming right here (not really)
                     }
                 }
-                //Droplet.Instance.hasUpdated = false;
             }
         }
 
@@ -95,7 +92,13 @@ namespace DropletExtension
                     return;
                 }
 
-                string tmpFilePath = view.TextBuffer.Properties.GetProperty<ITextDocument>(typeof(ITextDocument)).FilePath;
+                ITextDocument tmpTextDocument;
+                bool propertyNotNull = view.TextBuffer.Properties.TryGetProperty(typeof(ITextDocument), out tmpTextDocument);
+                if (!propertyNotNull)
+                {
+                    return;
+                }
+                string tmpFilePath = tmpTextDocument.FilePath;
 
                 if (Droplet.Instance.dropletEditorActive == false && string.Compare(activeWindowFilePath, tmpFilePath, true) == 0)
                 {

@@ -127,14 +127,17 @@
   <data name="droplet" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\droplet\css\droplet.css;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
-  <data name="droplet_full" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\droplet\dist\droplet-full.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  <data name="droplet_full_min" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\droplet\dist\droplet-full.min.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="droplet_min" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\droplet\dist\droplet.min.css;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="example" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\droplet\example\example.coffee;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>..\resources\droplet\example\example.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
   </data>
   <data name="example1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\resources\droplet\example\example.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+    <value>..\resources\droplet\example\example.coffee;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="jquery_min" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\droplet\example\lib\jquery.min.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
@@ -147,6 +150,9 @@
   </data>
   <data name="theme_chrome" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\droplet\vendor\ace\theme-chrome.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>
+  </data>
+  <data name="worker" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\droplet\dist\worker.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="worker_coffee" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\droplet\vendor\ace\worker-coffee.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;Windows-1252</value>

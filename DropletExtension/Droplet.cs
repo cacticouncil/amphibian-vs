@@ -34,24 +34,7 @@ namespace DropletExtension
 
         public DropletBrowser dropletBrowser;
 
-        //public bool hasUpdated = false;
-
         public bool dropletEditorActive;
-        //public bool DropletEditorActive
-        //{
-        //    get { return dropletEditorActive; }
-        //    set
-        //    {
-        //        if (value != dropletEditorActive)
-        //        {
-        //            dropletEditorActive = value;
-        //            if (value == true)
-        //            {
-        //                VisualStudioTextEditor.SetVSText();
-        //            }
-        //        }
-        //    }
-        //}
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Droplet"/> class.

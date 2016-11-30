@@ -72,8 +72,6 @@ namespace DropletExtension
                 DOMElement keyPressTextEditor = document.GetElementByClassName("ace_text-input");
 
                 dragCover.AddEventListener(DOMEventType.OnMouseUp, DomEventHandlerOnMouseUp, true);
-                //dragCover.AddEventListener(DOMEventType.OnMouseMove, DomEventHandlerOnMouseUp, true);
-                //dragCover.AddEventListener(DOMEventType.OnMouseOver, DomEventHandlerOnMouseUp, true);
                 mouseUpTextEditor.AddEventListener(DOMEventType.OnMouseUp, DomEventHandlerOnMouseUp, true);
                 keyPressTextEditor.AddEventListener(DOMEventType.OnKeyDown, DomEventHandlerOnMouseUp, true);
                 keyChange.AddEventListener(DOMEventType.OnKeyPress, DomEventHandlerOnMouseUp, true);
@@ -83,7 +81,6 @@ namespace DropletExtension
 
         private void DomEventHandlerOnMouseUp(object sender, DOMEventArgs e)
         {
-            //Droplet.Instance.hasUpdated = true;
             VisualStudioTextEditor.SetVSText();
         }
 
@@ -95,7 +92,7 @@ namespace DropletExtension
             //this should be set to hidden, but the process doesn't close properly if it is set to hidden
             startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Minimized;
             startInfo.FileName = "cmd.exe";
-            startInfo.Arguments = "/C python -m http.server 8888";
+            startInfo.Arguments = "/C cd %LOCALAPPDATA%/Microsoft/VisualStudio/14.0/DropletExtension && python -m http.server 8888";
             server.StartInfo = startInfo;
             server.Start();
         }
