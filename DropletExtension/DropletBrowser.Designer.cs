@@ -18,8 +18,7 @@
                 components.Dispose();
             }
             base.Dispose(disposing);
-            this.server.CloseMainWindow();
-            this.server.Close();
+
         }
 
         #region Windows Form Designer generated code
@@ -36,9 +35,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 261);
+            this.ClientSize = new System.Drawing.Size(720, 626);
             this.Name = "DropletBrowser";
-            this.Text = "DropletBrowser";
+            this.Text = "Droplet";
             this.ResumeLayout(false);
 
         }

@@ -13,8 +13,6 @@ using Microsoft.VisualStudio.Text.Formatting;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using System.IO;
-using System.Windows.Forms;
-using DotNetBrowser.DOM.Events;
 
 namespace DropletExtension
 {
@@ -33,6 +31,8 @@ namespace DropletExtension
         private DTE dte;
 
         private static string activeWindowFilePath;
+
+        private string currentCodeLanguage;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="VisualStudioTextEditor"/> class.
@@ -99,6 +99,23 @@ namespace DropletExtension
                     return;
                 }
                 string tmpFilePath = tmpTextDocument.FilePath;
+
+
+                // this works for changing the programming language palette is in, but it's kinda clunky, so I'll find a better way
+                string newCodeLanguage = curDoc.Language;
+
+                if (currentCodeLanguage == null || currentCodeLanguage != newCodeLanguage)
+                {
+                    currentCodeLanguage = newCodeLanguage;
+                    if (newCodeLanguage == "Python")
+                    {
+                        //Droplet.Instance.dropletBrowser.chromeBrowser.LoadURL("http://localhost:8193/Resources/Droplet/example/example-python.html");
+                    }
+                    else
+                    {
+                        //Droplet.Instance.dropletBrowser.chromeBrowser.LoadURL("http://localhost:8193/Resources/Droplet/example/example.html");
+                    }
+                }
 
                 if (Droplet.Instance.dropletEditorActive == false && string.Compare(activeWindowFilePath, tmpFilePath, true) == 0)
                 {

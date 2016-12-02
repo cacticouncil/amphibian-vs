@@ -36,6 +36,7 @@ namespace DropletExtension
             InitializePythonServer();
 
             InitializeDotNetBrowser();
+
         }
 
         private void DropletBrowser_Deactivate(object sender, EventArgs e)
@@ -54,30 +55,33 @@ namespace DropletExtension
             BrowserView browserView = new WinFormsBrowserView(chromeBrowser);
             browserView.Browser.FinishLoadingFrameEvent += Browser_FinishLoadingFrameEvent;
             Controls.Add((Control)browserView);
-            chromeBrowser.LoadURL("http://localhost:8888/Resources/Droplet/example/example.html");
+            chromeBrowser.LoadURL("http://localhost:8193/Resources/Droplet/example/example.html");
+
+
+            
         }
 
         private void Browser_FinishLoadingFrameEvent(object sender, DotNetBrowser.Events.FinishLoadingEventArgs e)
         {
-            if (e.IsMainFrame)
+            DOMDocument document = chromeBrowser.GetDocument();
+
+
+            // Sets event listeners to certain parts of the html page, so changes can be recognized and sent to the Visual Studio editor
+            DOMElement keyChange = document.GetElementByClassName("droplet-wrapper-div");
+            List<DOMNode> keyPressTextEditor = document.GetElementsByClassName("ace_text-input");
+
+            for (int i = 0; i < keyPressTextEditor.Count; i++)
             {
-                Browser myBrowser = e.Browser;
-                DOMDocument document = chromeBrowser.GetDocument();
-
-                // I need to find the correct element and the right events to use in order to notice when text is changed on droplet
-                DOMElement tmp = document.GetElementByClassName("droplet-wrapper-div");
-                DOMElement keyChange = document.GetElementByClassName("droplet-wrapper-div");
-                DOMElement dragCover = document.GetElementByClassName("droplet-drag-cover");
-                DOMElement mouseUpTextEditor = document.GetElementByClassName("ace_content");
-                DOMElement keyPressTextEditor = document.GetElementByClassName("ace_text-input");
-
-                dragCover.AddEventListener(DOMEventType.OnMouseUp, DomEventHandlerOnMouseUp, true);
-                mouseUpTextEditor.AddEventListener(DOMEventType.OnMouseUp, DomEventHandlerOnMouseUp, true);
-                keyPressTextEditor.AddEventListener(DOMEventType.OnKeyDown, DomEventHandlerOnMouseUp, true);
-                keyChange.AddEventListener(DOMEventType.OnKeyPress, DomEventHandlerOnMouseUp, true);
-                tmp.AddEventListener(DOMEventType.OnMouseOver, DomEventHandlerOnMouseUp, true);
+                keyPressTextEditor.ElementAt(i).AddEventListener(DOMEventType.OnKeyUp, DomEventHandlerOnMouseUp, true);
             }
+            keyChange.AddEventListener(DOMEventType.OnMouseOver, DomEventHandlerOnMouseUp, true);
+
+
+
+            //server.CloseMainWindow();
+            //server.Close();
         }
+
 
         private void DomEventHandlerOnMouseUp(object sender, DOMEventArgs e)
         {
@@ -92,7 +96,7 @@ namespace DropletExtension
             //this should be set to hidden, but the process doesn't close properly if it is set to hidden
             startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Minimized;
             startInfo.FileName = "cmd.exe";
-            startInfo.Arguments = "/C cd %LOCALAPPDATA%/Microsoft/VisualStudio/14.0/DropletExtension && python -m http.server 8888";
+            startInfo.Arguments = "/C cd %LOCALAPPDATA%/Microsoft/VisualStudio/14.0/DropletExtension && python -m http.server 8193";
             server.StartInfo = startInfo;
             server.Start();
         }
@@ -109,12 +113,6 @@ namespace DropletExtension
             {
                 result = tmp.GetString();
             }
-
-            // for testing purposes only
-            //using (System.IO.StreamWriter sw = new System.IO.StreamWriter(@"C:\Users\jacky\Desktop\Testing Stuff\TestFromDroplet.txt"))
-            //{
-            //    sw.Write(result);
-            //}
 
             return result;
         }
