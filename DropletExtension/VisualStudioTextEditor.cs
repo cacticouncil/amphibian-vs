@@ -13,6 +13,7 @@ using Microsoft.VisualStudio.Text.Formatting;
 using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using System.IO;
+using System.Diagnostics;
 
 namespace DropletExtension
 {
@@ -32,7 +33,7 @@ namespace DropletExtension
 
         private static string activeWindowFilePath;
 
-        private string currentCodeLanguage;
+        private string currentCodeLanguage = "CSharp";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="VisualStudioTextEditor"/> class.
@@ -56,15 +57,20 @@ namespace DropletExtension
 
         public static void SetVSText()
         {
+            // make sure droplet is open
             if (Droplet.Instance == null)
             {
                 return;
             }
+
+            // if droplet isn't active, then there shouldn't be any changes from there to move to VS
             if (Droplet.Instance.dropletEditorActive == true)
             {
                 string dropletText = Droplet.Instance.dropletBrowser.GetText();
                 if (dropletText != "")
                 {
+                    // Debug.WriteLine("SetVSText(): " + dropletText);
+                    // this is the best way I know how to set the text in visual studio. not the best, but it works
                     try
                     {
                         using (StreamWriter sw = new StreamWriter(activeWindowFilePath))
@@ -82,16 +88,18 @@ namespace DropletExtension
 
         private void OnWindowActivated(Window GotFocus, Window LostFocus)
         {
-            
             if (null != GotFocus.Document)
             {
                 Document curDoc = GotFocus.Document;
                 activeWindowFilePath = curDoc.FullName;
+
+                // if droplet isn't open, then there's no point in doing anything else in this function
                 if (Droplet.Instance == null)
                 {
                     return;
                 }
 
+                // 
                 ITextDocument tmpTextDocument;
                 bool propertyNotNull = view.TextBuffer.Properties.TryGetProperty(typeof(ITextDocument), out tmpTextDocument);
                 if (!propertyNotNull)
@@ -101,25 +109,28 @@ namespace DropletExtension
                 string tmpFilePath = tmpTextDocument.FilePath;
 
 
-                // this works for changing the programming language palette is in, but it's kinda clunky, so I'll find a better way
-                string newCodeLanguage = curDoc.Language;
+                // Check to see if programming language changes, and if it does, change the palette to the new language
+                //string newCodeLanguage = curDoc.Language;
 
-                if (currentCodeLanguage == null || currentCodeLanguage != newCodeLanguage)
-                {
-                    currentCodeLanguage = newCodeLanguage;
-                    if (newCodeLanguage == "Python")
-                    {
-                        //Droplet.Instance.dropletBrowser.chromeBrowser.LoadURL("http://localhost:8193/Resources/Droplet/example/example-python.html");
-                    }
-                    else
-                    {
-                        //Droplet.Instance.dropletBrowser.chromeBrowser.LoadURL("http://localhost:8193/Resources/Droplet/example/example.html");
-                    }
-                }
+                //if (currentCodeLanguage != newCodeLanguage)
+                //{
+                //    currentCodeLanguage = newCodeLanguage;
+                //    if (string.Compare(newCodeLanguage, "Python", true) == 0)
+                //    {
+                //        Droplet.Instance.dropletBrowser.chromeBrowser.LoadURL("http://localhost:8192/Resources/Droplet/example/example-python.html");
+                //    }
+                //    else if (string.Compare(newCodeLanguage, "CSharp", true) == 0)
+                //    {
+                //        Droplet.Instance.dropletBrowser.chromeBrowser.LoadURL("http://localhost:8192/Resources/Droplet/example/example.html");
+                //    }
+                //}
 
+                // 
                 if (Droplet.Instance.dropletEditorActive == false && string.Compare(activeWindowFilePath, tmpFilePath, true) == 0)
                 {
-                    Droplet.Instance.dropletBrowser.SetText(view.TextBuffer.CurrentSnapshot.GetText());
+                    string vsText = view.TextBuffer.CurrentSnapshot.GetText();
+                    Debug.WriteLine("OnWindowActivated():\n" + vsText);
+                    Droplet.Instance.dropletBrowser.SetText(vsText);
                 }
             }
         }

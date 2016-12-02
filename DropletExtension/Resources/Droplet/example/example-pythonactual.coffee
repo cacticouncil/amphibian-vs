@@ -97,48 +97,37 @@ dropletConfig.setValue '''
           },
           {
             'block': 'a == b',
-            'wrapperContext': expressionContext
           },
           {
             'block': 'a < b',
-            'wrapperContext': expressionContext
           },
           {
             'block': 'a > b',
-            'wrapperContext': expressionContext
           },
           {
             'block': 'a and b',
-            'wrapperContext': expressionContext
           },
           {
             'block': 'a or b',
-            'wrapperContext': expressionContext
           },
 
           {
             'block': 'a + b',
-            'wrapperContext': expressionContext
           },
           {
             'block': 'a - b',
-            'wrapperContext': expressionContext
           },
           {
             'block': 'a * b',
-            'wrapperContext': expressionContext
           },
           {
             'block': 'a / b',
-            'wrapperContext': expressionContext
           },
           {
             'block': 'a % b',
-            'wrapperContext': expressionContext
           },
           {
             'block': 'a ** b',
-            'wrapperContext': expressionContext
           }
         ]
       }

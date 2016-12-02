@@ -15,6 +15,7 @@ using System.IO;
 using System.Web;
 using DotNetBrowser.DOM;
 using DotNetBrowser.DOM.Events;
+using System.Diagnostics;
 
 namespace DropletExtension
 {
@@ -24,7 +25,7 @@ namespace DropletExtension
 
         public string result;
 
-        public System.Diagnostics.Process server;
+        public Process server;
 
         public DropletBrowser()
         {
@@ -55,16 +56,12 @@ namespace DropletExtension
             BrowserView browserView = new WinFormsBrowserView(chromeBrowser);
             browserView.Browser.FinishLoadingFrameEvent += Browser_FinishLoadingFrameEvent;
             Controls.Add((Control)browserView);
-            chromeBrowser.LoadURL("http://localhost:8193/Resources/Droplet/example/example.html");
-
-
-            
+            chromeBrowser.LoadURL("http://localhost:8192/Resources/Droplet/example/example.html");
         }
 
         private void Browser_FinishLoadingFrameEvent(object sender, DotNetBrowser.Events.FinishLoadingEventArgs e)
         {
             DOMDocument document = chromeBrowser.GetDocument();
-
 
             // Sets event listeners to certain parts of the html page, so changes can be recognized and sent to the Visual Studio editor
             DOMElement keyChange = document.GetElementByClassName("droplet-wrapper-div");
@@ -75,7 +72,6 @@ namespace DropletExtension
                 keyPressTextEditor.ElementAt(i).AddEventListener(DOMEventType.OnKeyUp, DomEventHandlerOnMouseUp, true);
             }
             keyChange.AddEventListener(DOMEventType.OnMouseOver, DomEventHandlerOnMouseUp, true);
-
 
 
             //server.CloseMainWindow();
@@ -96,7 +92,7 @@ namespace DropletExtension
             //this should be set to hidden, but the process doesn't close properly if it is set to hidden
             startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Minimized;
             startInfo.FileName = "cmd.exe";
-            startInfo.Arguments = "/C cd %LOCALAPPDATA%/Microsoft/VisualStudio/14.0/DropletExtension && python -m http.server 8193";
+            startInfo.Arguments = "/C cd %LOCALAPPDATA%/Microsoft/VisualStudio/14.0/DropletExtension && python -m http.server 8192";
             server.StartInfo = startInfo;
             server.Start();
         }
@@ -119,6 +115,7 @@ namespace DropletExtension
 
         public void SetText(string code)
         {
+            code = code.Replace("`", "\\`");
             string script = "this.editor.setValue(`" + code + "`);";
 
             chromeBrowser.ExecuteJavaScript(script);
