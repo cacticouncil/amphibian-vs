@@ -116,10 +116,16 @@ namespace DropletExtension
                 {
                     currentCodeLanguage = newCodeLanguage;
 
+                    if (newCodeLanguage == "C/C++")
+                    {
+                        newCodeLanguage = "C++";
+                    }
+
+
                     // This should work, but it's sloppy for now
                     string script = string.Empty;
                     string palette = string.Empty;
-                    string filePath = "Resources/Droplet/example/lib/" + currentCodeLanguage + "-palette.js";
+                    string filePath = "Resources/Droplet/example/lib/" + newCodeLanguage + "_palette.coffee";
                     
                     try
                     {
