@@ -56,7 +56,7 @@ namespace DropletExtension
             BrowserView browserView = new WinFormsBrowserView(chromeBrowser);
             browserView.Browser.FinishLoadingFrameEvent += Browser_FinishLoadingFrameEvent;
             Controls.Add((Control)browserView);
-            chromeBrowser.LoadURL("http://localhost:8192/Resources/Droplet/example/example.html");
+            chromeBrowser.LoadURL("http://localhost:3426/Resources/Droplet/example/example.html");
         }
 
         private void Browser_FinishLoadingFrameEvent(object sender, DotNetBrowser.Events.FinishLoadingEventArgs e)
@@ -92,7 +92,7 @@ namespace DropletExtension
             //this should be set to hidden, but the process doesn't close properly if it is set to hidden
             startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Minimized;
             startInfo.FileName = "cmd.exe";
-            startInfo.Arguments = "/C cd %LOCALAPPDATA%/Microsoft/VisualStudio/14.0/DropletExtension && python -m http.server 8192";
+            startInfo.Arguments = "/C cd %LOCALAPPDATA%/Microsoft/VisualStudio/14.0/DropletExtension && python -m http.server 3426";
             server.StartInfo = startInfo;
             server.Start();
         }
@@ -104,10 +104,10 @@ namespace DropletExtension
                 return this.editor.getValue();
                 })(); ";
 
-            var tmp = chromeBrowser.ExecuteJavaScriptAndReturnValue(script);
-            if (!tmp.IsNull())
+            var tmpResult = chromeBrowser.ExecuteJavaScriptAndReturnValue(script);
+            if (!tmpResult.IsNull())
             {
-                result = tmp.GetString();
+                result = tmpResult.GetString();
             }
 
             return result;

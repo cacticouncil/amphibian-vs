@@ -110,30 +110,46 @@ namespace DropletExtension
 
 
                 // Check to see if programming language changes, and if it does, change the palette to the new language
-                //string newCodeLanguage = curDoc.Language;
+                string newCodeLanguage = curDoc.Language;
 
-                //if (currentCodeLanguage != newCodeLanguage)
-                //{
-                //    currentCodeLanguage = newCodeLanguage;
-                //    if (string.Compare(newCodeLanguage, "Python", true) == 0)
-                //    {
-                //        Droplet.Instance.dropletBrowser.chromeBrowser.LoadURL("http://localhost:8192/Resources/Droplet/example/example-python.html");
-                //    }
-                //    else if (string.Compare(newCodeLanguage, "CSharp", true) == 0)
-                //    {
-                //        Droplet.Instance.dropletBrowser.chromeBrowser.LoadURL("http://localhost:8192/Resources/Droplet/example/example.html");
-                //    }
-                //}
+                if (currentCodeLanguage != newCodeLanguage)
+                {
+                    currentCodeLanguage = newCodeLanguage;
+
+                    // This should work, but it's sloppy for now
+                    string script = string.Empty;
+                    string palette = string.Empty;
+                    string filePath = "Resources/Droplet/example/lib/" + currentCodeLanguage + "-palette.js";
+                    
+                    try
+                    {
+                        using (StreamReader sr = new StreamReader(filePath))
+                        {
+                            palette = sr.ReadToEnd();
+                        }
+                    }
+                    catch
+                    {
+                        // That programming language isn't supported yet
+                    }
+                    
+                    script = "this.localStorage.setItem('config', `" + palette + "`); update.click()";
+                    Droplet.Instance.dropletBrowser.chromeBrowser.ExecuteJavaScript(script);
+
+                }
+
+                 
 
                 // 
                 if (Droplet.Instance.dropletEditorActive == false && string.Compare(activeWindowFilePath, tmpFilePath, true) == 0)
                 {
                     string vsText = view.TextBuffer.CurrentSnapshot.GetText();
-                    Debug.WriteLine("OnWindowActivated():\n" + vsText);
+                    //Debug.WriteLine("OnWindowActivated():\n" + vsText);
                     Droplet.Instance.dropletBrowser.SetText(vsText);
                 }
             }
         }
+
 
         /// <summary>
         /// Handles whenever the text displayed in the view changes by adding the adornment to any reformatted lines
@@ -146,7 +162,7 @@ namespace DropletExtension
         /// <param name="e">The event arguments.</param>
         internal void OnLayoutChanged(object sender, TextViewLayoutChangedEventArgs e)
         {
-            
+
             if (activeWindowFilePath == null)
             {
                 return;

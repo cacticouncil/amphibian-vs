@@ -86,8 +86,7 @@ unless window.ALREADY_LOADED
 
   # Stuff for testing convenience
   $('#update').on 'click', ->
-    localStorage.setItem 'config', dropletConfig.getValue()
-    createEditor eval dropletConfig.getValue()
+    createEditor eval localStorage.getItem('config')
 
   configCurrentlyOut = localStorage.getItem('configOut') is 'yes'
 
