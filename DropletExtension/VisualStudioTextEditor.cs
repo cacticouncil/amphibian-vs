@@ -14,6 +14,8 @@ using EnvDTE;
 using Microsoft.VisualStudio.Shell;
 using System.IO;
 using System.Diagnostics;
+using System.Timers;
+using DotNetBrowser.Events;
 
 namespace DropletExtension
 {
@@ -27,13 +29,13 @@ namespace DropletExtension
         /// <summary>
         /// Text view where the adornment is created.
         /// </summary>
-        private readonly IWpfTextView view;
+        private IWpfTextView view;
 
         private DTE dte;
 
         private static string activeWindowFilePath;
 
-        private string currentCodeLanguage = "CSharp";
+        private static string currentCodeLanguage;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="VisualStudioTextEditor"/> class.
@@ -53,6 +55,12 @@ namespace DropletExtension
 
             dte = Package.GetGlobalService(typeof(DTE)) as DTE;
             dte.Events.WindowEvents.WindowActivated += OnWindowActivated;
+
+            if (Droplet.Instance != null)
+            {
+                string vsText = view.TextBuffer.CurrentSnapshot.GetText();
+                Droplet.Instance.dropletBrowser.SetText(vsText);
+            }
         }
 
         public static void SetVSText()
@@ -67,21 +75,18 @@ namespace DropletExtension
             if (Droplet.Instance.dropletEditorActive == true)
             {
                 string dropletText = Droplet.Instance.dropletBrowser.GetText();
-                if (dropletText != "")
+                // Debug.WriteLine("SetVSText(): " + dropletText);
+                // this is the best way I know how to set the text in visual studio. not the best, but it works
+                try
                 {
-                    // Debug.WriteLine("SetVSText(): " + dropletText);
-                    // this is the best way I know how to set the text in visual studio. not the best, but it works
-                    try
+                    using (StreamWriter sw = new StreamWriter(activeWindowFilePath))
                     {
-                        using (StreamWriter sw = new StreamWriter(activeWindowFilePath))
-                        {
-                            sw.Write(dropletText);
-                        }
+                        sw.Write(dropletText);
                     }
-                    catch
-                    {
-                        // good programming right here (not really)
-                    }
+                }
+                catch
+                {
+                    // good programming right here (not really)
                 }
             }
         }
@@ -107,26 +112,34 @@ namespace DropletExtension
                     return;
                 }
                 string tmpFilePath = tmpTextDocument.FilePath;
-
-
+                if (string.Compare(activeWindowFilePath, tmpFilePath, true) != 0)
+                {
+                    return;
+                }
                 // Check to see if programming language changes, and if it does, change the palette to the new language
                 string newCodeLanguage = curDoc.Language;
 
+                if (newCodeLanguage == "C/C++")
+                {
+                    newCodeLanguage = "c_c++";
+                }
+
+                // currentCodeLanguage keeps getting changed outside of this function, and I can't tell where
                 if (currentCodeLanguage != newCodeLanguage)
                 {
                     currentCodeLanguage = newCodeLanguage;
 
-                    if (newCodeLanguage == "C/C++")
+                    if (Droplet.Instance.dropletEditorActive == false && string.Compare(activeWindowFilePath, tmpFilePath, true) == 0)
                     {
-                        newCodeLanguage = "C++";
+                        string vsText = view.TextBuffer.CurrentSnapshot.GetText();
+                        Droplet.Instance.dropletBrowser.SetText(vsText);
                     }
-
-
-                    // This should work, but it's sloppy for now
+                    
+                    // read the code from the given palette file for the language
                     string script = string.Empty;
                     string palette = string.Empty;
-                    string filePath = "Resources/Droplet/example/lib/" + newCodeLanguage + "_palette.coffee";
-                    
+                    string filePath = "Resources/Droplet/example/palette/" + newCodeLanguage + "_palette.coffee";
+
                     try
                     {
                         using (StreamReader sr = new StreamReader(filePath))
@@ -138,21 +151,20 @@ namespace DropletExtension
                     {
                         // That programming language isn't supported yet
                     }
-                    
+
+                    // push that code into palette, then update palette
                     script = "this.localStorage.setItem('config', `" + palette + "`); update.click()";
                     Droplet.Instance.dropletBrowser.chromeBrowser.ExecuteJavaScript(script);
 
+
                 }
-
-                 
-
-                // 
-                if (Droplet.Instance.dropletEditorActive == false && string.Compare(activeWindowFilePath, tmpFilePath, true) == 0)
+                else if (Droplet.Instance.dropletEditorActive == false && string.Compare(activeWindowFilePath, tmpFilePath, true) == 0)
                 {
                     string vsText = view.TextBuffer.CurrentSnapshot.GetText();
                     //Debug.WriteLine("OnWindowActivated():\n" + vsText);
                     Droplet.Instance.dropletBrowser.SetText(vsText);
                 }
+
             }
         }
 

@@ -27,6 +27,8 @@ namespace DropletExtension
 
         public Process server;
 
+        private static string portNum = "3443";
+
         public DropletBrowser()
         {
             InitializeComponent();
@@ -56,27 +58,28 @@ namespace DropletExtension
             BrowserView browserView = new WinFormsBrowserView(chromeBrowser);
             browserView.Browser.FinishLoadingFrameEvent += Browser_FinishLoadingFrameEvent;
             Controls.Add((Control)browserView);
-            chromeBrowser.LoadURL("http://localhost:3426/Resources/Droplet/example/example.html");
+            chromeBrowser.LoadURL("http://localhost:" + portNum + "/Resources/Droplet/example/example.html");
         }
 
-        private void Browser_FinishLoadingFrameEvent(object sender, DotNetBrowser.Events.FinishLoadingEventArgs e)
+        public void Browser_FinishLoadingFrameEvent(object sender, DotNetBrowser.Events.FinishLoadingEventArgs e)
         {
             DOMDocument document = chromeBrowser.GetDocument();
 
             // Sets event listeners to certain parts of the html page, so changes can be recognized and sent to the Visual Studio editor
-            DOMElement keyChange = document.GetElementByClassName("droplet-wrapper-div");
+            List<DOMNode> mouseDownWrapperDiv = document.GetElementsByClassName("droplet-wrapper-div");
             List<DOMNode> keyPressTextEditor = document.GetElementsByClassName("ace_text-input");
 
             for (int i = 0; i < keyPressTextEditor.Count; i++)
             {
                 keyPressTextEditor.ElementAt(i).AddEventListener(DOMEventType.OnKeyUp, DomEventHandlerOnMouseUp, true);
             }
-            keyChange.AddEventListener(DOMEventType.OnMouseOver, DomEventHandlerOnMouseUp, true);
-
-
-            //server.CloseMainWindow();
-            //server.Close();
+            for (int i = 0; i < mouseDownWrapperDiv.Count; i++)
+            {
+                mouseDownWrapperDiv.ElementAt(i).AddEventListener(DOMEventType.OnMouseMove, DomEventHandlerOnMouseUp, true);
+                mouseDownWrapperDiv.ElementAt(i).AddEventListener(DOMEventType.OnKeyPress, DomEventHandlerOnMouseUp, true);
+            }
         }
+
 
 
         private void DomEventHandlerOnMouseUp(object sender, DOMEventArgs e)
@@ -86,13 +89,13 @@ namespace DropletExtension
 
         public void InitializePythonServer()
         {
-            server = new System.Diagnostics.Process();
-            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+            server = new Process();
+            ProcessStartInfo startInfo = new ProcessStartInfo();
 
             //this should be set to hidden, but the process doesn't close properly if it is set to hidden
-            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Minimized;
+            startInfo.WindowStyle = ProcessWindowStyle.Minimized;
             startInfo.FileName = "cmd.exe";
-            startInfo.Arguments = "/C cd %LOCALAPPDATA%/Microsoft/VisualStudio/14.0/DropletExtension && python -m http.server 3426";
+            startInfo.Arguments = "/C cd %LOCALAPPDATA%/Microsoft/VisualStudio/14.0/DropletExtension && python -m http.server " + portNum;
             server.StartInfo = startInfo;
             server.Start();
         }

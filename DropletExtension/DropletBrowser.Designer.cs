@@ -19,6 +19,8 @@
             }
             base.Dispose(disposing);
 
+            server.CloseMainWindow();
+            server.Close();
         }
 
         #region Windows Form Designer generated code
