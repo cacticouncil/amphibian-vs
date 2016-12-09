@@ -15,7 +15,6 @@ using Microsoft.VisualStudio.Shell;
 using System.IO;
 using System.Diagnostics;
 using System.Timers;
-using DotNetBrowser.Events;
 
 namespace DropletExtension
 {
@@ -35,7 +34,9 @@ namespace DropletExtension
 
         private static string activeWindowFilePath;
 
-        private static string currentCodeLanguage;
+        public static string currentCodeLanguage;
+
+        public static string currentCodeText;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="VisualStudioTextEditor"/> class.
@@ -56,10 +57,11 @@ namespace DropletExtension
             dte = Package.GetGlobalService(typeof(DTE)) as DTE;
             dte.Events.WindowEvents.WindowActivated += OnWindowActivated;
 
+            // if droplet is already open, then set the text right away
+            currentCodeText = view.TextBuffer.CurrentSnapshot.GetText();
             if (Droplet.Instance != null)
             {
-                string vsText = view.TextBuffer.CurrentSnapshot.GetText();
-                Droplet.Instance.dropletBrowser.SetText(vsText);
+                Droplet.Instance.dropletBrowser.SetText(currentCodeText);
             }
         }
 
@@ -131,10 +133,10 @@ namespace DropletExtension
 
                     if (Droplet.Instance.dropletEditorActive == false && string.Compare(activeWindowFilePath, tmpFilePath, true) == 0)
                     {
-                        string vsText = view.TextBuffer.CurrentSnapshot.GetText();
-                        Droplet.Instance.dropletBrowser.SetText(vsText);
+                        currentCodeText = view.TextBuffer.CurrentSnapshot.GetText();
+                        Droplet.Instance.dropletBrowser.SetText(currentCodeText);
                     }
-                    
+
                     // read the code from the given palette file for the language
                     string script = string.Empty;
                     string palette = string.Empty;
@@ -160,9 +162,9 @@ namespace DropletExtension
                 }
                 else if (Droplet.Instance.dropletEditorActive == false && string.Compare(activeWindowFilePath, tmpFilePath, true) == 0)
                 {
-                    string vsText = view.TextBuffer.CurrentSnapshot.GetText();
+                    currentCodeText = view.TextBuffer.CurrentSnapshot.GetText();
                     //Debug.WriteLine("OnWindowActivated():\n" + vsText);
-                    Droplet.Instance.dropletBrowser.SetText(vsText);
+                    Droplet.Instance.dropletBrowser.SetText(currentCodeText);
                 }
 
             }
@@ -180,7 +182,7 @@ namespace DropletExtension
         /// <param name="e">The event arguments.</param>
         internal void OnLayoutChanged(object sender, TextViewLayoutChangedEventArgs e)
         {
-
+            // make sure things are open
             if (activeWindowFilePath == null)
             {
                 return;
@@ -189,13 +191,16 @@ namespace DropletExtension
             {
                 return;
             }
+            // make sure text was changed
             if (e.OldSnapshot.GetText() == e.NewSnapshot.GetText())
             {
                 return;
             }
+            // set the new text
             if (Droplet.Instance.dropletEditorActive == false)
             {
-                Droplet.Instance.dropletBrowser.SetText(e.NewViewState.EditSnapshot.GetText());
+                currentCodeText = e.NewViewState.EditSnapshot.GetText();
+                Droplet.Instance.dropletBrowser.SetText(currentCodeText);
             }
 
         }

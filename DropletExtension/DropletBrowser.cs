@@ -27,7 +27,7 @@ namespace DropletExtension
 
         public Process server;
 
-        private static string portNum = "3443";
+        private static string portNum = "3444";
 
         public DropletBrowser()
         {
@@ -40,6 +40,7 @@ namespace DropletExtension
 
             InitializeDotNetBrowser();
 
+            
         }
 
         private void DropletBrowser_Deactivate(object sender, EventArgs e)
@@ -77,6 +78,11 @@ namespace DropletExtension
             {
                 mouseDownWrapperDiv.ElementAt(i).AddEventListener(DOMEventType.OnMouseMove, DomEventHandlerOnMouseUp, true);
                 mouseDownWrapperDiv.ElementAt(i).AddEventListener(DOMEventType.OnKeyPress, DomEventHandlerOnMouseUp, true);
+            }
+
+            if (VisualStudioTextEditor.currentCodeText != null)
+            {
+                SetText(VisualStudioTextEditor.currentCodeText);
             }
         }
 
