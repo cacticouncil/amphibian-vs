@@ -61,7 +61,7 @@ namespace DropletExtension
             currentCodeText = view.TextBuffer.CurrentSnapshot.GetText();
             if (Droplet.Instance != null)
             {
-                Droplet.Instance.dropletBrowser.SetText(currentCodeText);
+                Droplet.Instance.dropletBrowser.SetText(view.TextBuffer.CurrentSnapshot.GetText());
             }
         }
 
@@ -158,13 +158,13 @@ namespace DropletExtension
                     script = "this.localStorage.setItem('config', `" + palette + "`); update.click()";
                     Droplet.Instance.dropletBrowser.chromeBrowser.ExecuteJavaScript(script);
 
-
+                    Droplet.Instance.dropletBrowser.Browser_FinishLoadingFrameEvent(null, null);
                 }
                 else if (Droplet.Instance.dropletEditorActive == false && string.Compare(activeWindowFilePath, tmpFilePath, true) == 0)
                 {
                     currentCodeText = view.TextBuffer.CurrentSnapshot.GetText();
                     //Debug.WriteLine("OnWindowActivated():\n" + vsText);
-                    Droplet.Instance.dropletBrowser.SetText(currentCodeText);
+                    Droplet.Instance.dropletBrowser.SetText(view.TextBuffer.CurrentSnapshot.GetText());
                 }
 
             }
@@ -200,7 +200,7 @@ namespace DropletExtension
             if (Droplet.Instance.dropletEditorActive == false)
             {
                 currentCodeText = e.NewViewState.EditSnapshot.GetText();
-                Droplet.Instance.dropletBrowser.SetText(currentCodeText);
+                Droplet.Instance.dropletBrowser.SetText(view.TextBuffer.CurrentSnapshot.GetText());
             }
 
         }

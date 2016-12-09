@@ -29,6 +29,8 @@ namespace DropletExtension
 
         private static string portNum = "3444";
 
+        private bool isOpen = false;
+
         public DropletBrowser()
         {
             InitializeComponent();
@@ -80,9 +82,10 @@ namespace DropletExtension
                 mouseDownWrapperDiv.ElementAt(i).AddEventListener(DOMEventType.OnKeyPress, DomEventHandlerOnMouseUp, true);
             }
 
-            if (VisualStudioTextEditor.currentCodeText != null)
+            if (VisualStudioTextEditor.currentCodeText != null && isOpen == false)
             {
                 SetText(VisualStudioTextEditor.currentCodeText);
+                isOpen = true;
             }
         }
 

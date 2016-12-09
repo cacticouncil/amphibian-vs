@@ -33,7 +33,7 @@
       },
 
       {
-                        name: 'Operators',
+        name: 'Operators',
         color: 'yellow',
         blocks: [
           { block: 'a + b' },
