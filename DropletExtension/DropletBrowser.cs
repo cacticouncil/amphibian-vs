@@ -77,7 +77,7 @@ namespace DropletExtension
             for (int i = 0; i < mouseDownWrapperDiv.Count; i++)
             {
                 mouseDownWrapperDiv.ElementAt(i).AddEventListener(DOMEventType.OnMouseMove, DomEventHandlerOnMouseUp, false);
-                mouseDownWrapperDiv.ElementAt(i).AddEventListener(DOMEventType.OnKeyPress, DomEventHandlerOnMouseUp, false);
+                mouseDownWrapperDiv.ElementAt(i).AddEventListener(DOMEventType.OnKeyUp, DomEventHandlerOnMouseUp, false);
             }
 
             if (VisualStudioTextEditor.currentCodeText != null)
@@ -124,6 +124,7 @@ namespace DropletExtension
 
         public void SetText(string code)
         {
+            code = code.Replace(@"\", @"\\");
             code = code.Replace("`", "\\`");
             string script = "this.editor.setValue(`" + code + "`);";
 
