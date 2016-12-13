@@ -38,6 +38,8 @@ namespace DropletExtension
 
         public static string currentCodeText;
 
+        Timer timer = new Timer(750);
+
         /// <summary>
         /// Initializes a new instance of the <see cref="VisualStudioTextEditor"/> class.
         /// </summary>
@@ -63,6 +65,14 @@ namespace DropletExtension
             {
                 Droplet.Instance.dropletBrowser.SetText(view.TextBuffer.CurrentSnapshot.GetText());
             }
+            timer.Elapsed += Timer_Elapsed;
+        }
+
+        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            timer.Stop();
+            Droplet.Instance.dropletBrowser.SetText(view.TextBuffer.CurrentSnapshot.GetText());
+
         }
 
         public static void SetVSText()
@@ -118,6 +128,9 @@ namespace DropletExtension
                 {
                     return;
                 }
+
+          
+
                 // Check to see if programming language changes, and if it does, change the palette to the new language
                 string newCodeLanguage = curDoc.Language;
 
@@ -130,13 +143,12 @@ namespace DropletExtension
                 if (currentCodeLanguage != newCodeLanguage)
                 {
                     currentCodeLanguage = newCodeLanguage;
-
                     if (Droplet.Instance.dropletEditorActive == false && string.Compare(activeWindowFilePath, tmpFilePath, true) == 0)
                     {
                         currentCodeText = view.TextBuffer.CurrentSnapshot.GetText();
-                        Droplet.Instance.dropletBrowser.SetText(currentCodeText);
+                        //Debug.WriteLine("OnWindowActivated():\n" + vsText);
+                        Droplet.Instance.dropletBrowser.SetText(view.TextBuffer.CurrentSnapshot.GetText());
                     }
-
                     // read the code from the given palette file for the language
                     string script = string.Empty;
                     string palette = string.Empty;
@@ -159,14 +171,14 @@ namespace DropletExtension
                     Droplet.Instance.dropletBrowser.chromeBrowser.ExecuteJavaScript(script);
 
                     Droplet.Instance.dropletBrowser.Browser_FinishLoadingFrameEvent(null, null);
+                    timer.Start();
                 }
-                else if (Droplet.Instance.dropletEditorActive == false && string.Compare(activeWindowFilePath, tmpFilePath, true) == 0)
+                if (Droplet.Instance.dropletEditorActive == false && string.Compare(activeWindowFilePath, tmpFilePath, true) == 0)
                 {
                     currentCodeText = view.TextBuffer.CurrentSnapshot.GetText();
                     //Debug.WriteLine("OnWindowActivated():\n" + vsText);
                     Droplet.Instance.dropletBrowser.SetText(view.TextBuffer.CurrentSnapshot.GetText());
                 }
-
             }
         }
 
@@ -200,7 +212,7 @@ namespace DropletExtension
             if (Droplet.Instance.dropletEditorActive == false)
             {
                 currentCodeText = e.NewViewState.EditSnapshot.GetText();
-                Droplet.Instance.dropletBrowser.SetText(view.TextBuffer.CurrentSnapshot.GetText());
+                Droplet.Instance.dropletBrowser.SetText(e.NewViewState.EditSnapshot.GetText());
             }
 
         }

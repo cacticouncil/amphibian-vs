@@ -27,9 +27,7 @@ namespace DropletExtension
 
         public Process server;
 
-        private static string portNum = "3444";
-
-        private bool isOpen = false;
+        private static string portNum = "3450";
 
         public DropletBrowser()
         {
@@ -42,7 +40,7 @@ namespace DropletExtension
 
             InitializeDotNetBrowser();
 
-            
+
         }
 
         private void DropletBrowser_Deactivate(object sender, EventArgs e)
@@ -74,18 +72,17 @@ namespace DropletExtension
 
             for (int i = 0; i < keyPressTextEditor.Count; i++)
             {
-                keyPressTextEditor.ElementAt(i).AddEventListener(DOMEventType.OnKeyUp, DomEventHandlerOnMouseUp, true);
+                keyPressTextEditor.ElementAt(i).AddEventListener(DOMEventType.OnKeyUp, DomEventHandlerOnMouseUp, false);
             }
             for (int i = 0; i < mouseDownWrapperDiv.Count; i++)
             {
-                mouseDownWrapperDiv.ElementAt(i).AddEventListener(DOMEventType.OnMouseMove, DomEventHandlerOnMouseUp, true);
-                mouseDownWrapperDiv.ElementAt(i).AddEventListener(DOMEventType.OnKeyPress, DomEventHandlerOnMouseUp, true);
+                mouseDownWrapperDiv.ElementAt(i).AddEventListener(DOMEventType.OnMouseMove, DomEventHandlerOnMouseUp, false);
+                mouseDownWrapperDiv.ElementAt(i).AddEventListener(DOMEventType.OnKeyPress, DomEventHandlerOnMouseUp, false);
             }
 
-            if (VisualStudioTextEditor.currentCodeText != null && isOpen == false)
+            if (VisualStudioTextEditor.currentCodeText != null)
             {
                 SetText(VisualStudioTextEditor.currentCodeText);
-                isOpen = true;
             }
         }
 
