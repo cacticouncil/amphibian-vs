@@ -64,14 +64,6 @@ unless window.ALREADY_LOADED
 
           element = $('<div>').html(title.textContent)[0]
 
-          $(@).tooltipster({
-            position: 'right'
-            interactive: true
-            content: element
-            contentCloning: true
-            maxWidth: 300
-            theme: ['tooltipster-noir', 'tooltipster-noir-customized']
-          })
       )
 
     console.log 'assigning window.editor'
