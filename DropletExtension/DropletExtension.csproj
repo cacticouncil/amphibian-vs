@@ -113,6 +113,7 @@
     <Compile Include="VisualStudioTextEditorTextViewCreationListener.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="teamdev.licenses" />
     <None Include="Key.snk" />
     <None Include="packages.config" />
     <Content Include="Resources\Droplet\dist\droplet-full.js">
@@ -164,7 +165,6 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="teamdev.licenses" />
     <VSCTCompile Include="DropletPackage.vsct">
       <ResourceName>Menus.ctmenu</ResourceName>
       <SubType>Designer</SubType>
@@ -219,12 +219,12 @@
     <Content Include="stylesheet.css" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="DotNetBrowser, Version=1.8.2.0, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
-      <HintPath>..\packages\DotNetBrowser.1.8.2\lib\DotNetBrowser.dll</HintPath>
+    <Reference Include="DotNetBrowser, Version=1.8.4.0, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetBrowser.1.8.4\lib\DotNetBrowser.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="DotNetBrowser.Chromium, Version=1.8.2.0, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
-      <HintPath>..\packages\DotNetBrowser.1.8.2\lib\DotNetBrowser.Chromium.dll</HintPath>
+    <Reference Include="DotNetBrowser.Chromium, Version=1.8.4.0, Culture=neutral, PublicKeyToken=b0b5aaca9c95c84e, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetBrowser.1.8.4\lib\DotNetBrowser.Chromium.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EnvDTE, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
@@ -371,10 +371,8 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.VSSDK.BuildTools.14.3.25407\build\Microsoft.VSSDK.BuildTools.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.VSSDK.BuildTools.14.3.25407\build\Microsoft.VSSDK.BuildTools.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.VSSDK.BuildTools.14.3.25407\build\Microsoft.VSSDK.BuildTools.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.VSSDK.BuildTools.14.3.25407\build\Microsoft.VSSDK.BuildTools.targets'))" />
-    <Error Condition="!Exists('..\packages\Baseclass.Contrib.Nuget.Output.2.0.0\build\net40\Baseclass.Contrib.Nuget.Output.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Baseclass.Contrib.Nuget.Output.2.0.0\build\net40\Baseclass.Contrib.Nuget.Output.targets'))" />
   </Target>
   <Import Project="..\packages\Microsoft.VSSDK.BuildTools.14.3.25407\build\Microsoft.VSSDK.BuildTools.targets" Condition="Exists('..\packages\Microsoft.VSSDK.BuildTools.14.3.25407\build\Microsoft.VSSDK.BuildTools.targets')" />
-  <Import Project="..\packages\Baseclass.Contrib.Nuget.Output.2.0.0\build\net40\Baseclass.Contrib.Nuget.Output.targets" Condition="Exists('..\packages\Baseclass.Contrib.Nuget.Output.2.0.0\build\net40\Baseclass.Contrib.Nuget.Output.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

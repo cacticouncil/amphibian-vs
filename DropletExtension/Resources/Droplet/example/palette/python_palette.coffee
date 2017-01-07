@@ -22,13 +22,13 @@
         name: 'Variables',
         color: 'orange',
         blocks: [
-          { block: 'integer_variable = 1' },
-          { block: 'floating_point_variable = 1.0' },
-          { block: 'string_variable = \\'This is a string!\\'' },
-          { block: 'bool_variable = True' },
-          { block: 'list_variable = [0, 1, 2, 3, 4, 5, 6]' },
-          { block: 'tuple_variable = (\\'ABCD\\', 12345, 6.0)' },
-          { block: 'dictionary_variable = {\\'Red\\', \\'Orange\\', \\'Yellow\\', \\'Green\\', \\'Blue\\', \\'Indigo\\', \\'Violet\\'}'  }
+          { block: 'intVariable = 1' },
+          { block: 'floatVariable = 1.0' },
+          { block: 'stringVariable = \\'This is a string!\\'' },
+          { block: 'boolVariable = True' },
+          { block: 'listVariable = [0, 1, 2, 3, 4, 5, 6]' },
+          { block: 'tupleVariable = (\\'ABCD\\', 12345, 6.0)' },
+          { block: 'dictVariable = {\\'Red\\', \\'Orange\\', \\'Yellow\\', \\'Green\\', \\'Blue\\', \\'Indigo\\', \\'Violet\\'}'  }
         ]
       },
 
@@ -43,7 +43,9 @@
           { block: 'a % b' },
           { block: 'a ** b' },
           { block: 'a // b' },
-                 
+          { block: '(a + b)' },
+          
+
           { block: 'a == b' },
           { block: 'a != b' },
           { block: 'a <> b' },
@@ -64,8 +66,8 @@
           { block: 'a \| b' },
           { block: 'a \^ b' },
           { block: '\~a = b' },
-          { block: 'a = \\'FIX <<\\'' },
-          { block: 'a = \\'FIX >>\\'' },
+          { block: 'a << 1' },
+          { block: 'a >> 1' },
                       
           { block: 'a and b' },
           { block: 'a or b' },
@@ -115,6 +117,15 @@
           { block: 'class_object = ClassName(\\'This is the default constructors args parameter!\\')' },
           { block: 'class_object.__init__()' }
         ]
-      }
+      },
+
+      {
+        name: 'Misc',
+        color: 'black',
+        blocks: [
+          { block: '# this is a comment' },
+
+        ]
+      },
     ]
   })

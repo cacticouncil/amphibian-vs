@@ -23,6 +23,8 @@ namespace DropletExtension
     {
         public Browser chromeBrowser;
 
+
+
         public string result;
 
         public Process server;

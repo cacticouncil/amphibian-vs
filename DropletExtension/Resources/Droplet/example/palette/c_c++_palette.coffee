@@ -23,9 +23,22 @@
         name: 'Functions',
         color: 'blue',
         blocks: [
-          { block: 'void main()\\n{\\n\\tint x = 1;\\n}' },
-          { block: 'void myFunction(void)\\n{\\n\\tint x = 1;\\n}' },
+          { block: 'void main()\\n{\\n\\t\\n}' },
+          { block: 'void myFunction(void)\\n{\\n\\t\\n}' },
           { block: 'myFunction();' },
+
+        ]
+      },
+
+      {
+        name: 'Variables',
+        color: 'green',
+        blocks: [
+          { block: 'int x;' },
+          { block: 'int x[5];' },
+          { block: 'int* x;' },
+
+
 
         ]
       },
@@ -34,14 +47,11 @@
         name: 'Operators',
         color: 'yellow',
         blocks: [
-          { block: 'int x;' },
-          { block: 'int x[5];' },
           { block: 'x = x + 1;' },
           { block: 'x = x - 1;' },
           { block: 'x = x * 1;' },
           { block: 'x = x / 1;' },
           { block: 'x = x % 1;' },
-
           { block: 'x = 1;' },
 
 
@@ -53,7 +63,7 @@
 
       {
         name: 'Controls',
-        color: 'green',
+        color: 'orange',
         blocks: [
 
         ]
@@ -63,8 +73,7 @@
         name: 'Classes',
         color: 'purple',
         blocks: [
-          { block: 'class myClass\\n{\\n\\tint x;\\n\\tint y;\\n}' },
-
+          { block: 'class myClass\\n{\\n\\t\\n}' },
 
         ]
       },
@@ -75,6 +84,9 @@
         color: 'black',
         blocks: [
           { block: '// this is a comment' },
+          { block: '#define PI 3.14159' },
+          { block: '#pragma region RegionName'},
+          { block: '#pragma endregion OptionalComment'},
 
         ]
       },
