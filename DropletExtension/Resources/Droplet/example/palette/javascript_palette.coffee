@@ -32,7 +32,7 @@
           { block: 'a--' },
           { block: '--a' },
 
-          { block: 'a = b;'},
+          { block: 'a = b'},
           { block: 'a += b'},
           { block: 'a -= b'},
           { block: 'a *= b'},
@@ -74,7 +74,7 @@
         blocks: [
           { block: 'if (a == b){\\n\\t\\n}'},
 
-          { block: 'while (a == b){\\n\\t\\n}'},
+          { block: 'while ((a == 10)){\\n\\t\\n}'},
           { block: 'for (var i = 0; i < 10; i++){\\n\\t\\n}'},
           { block: 'for (var i in b){\\n\\t\\n}'},
           { block: 'try {\\n\\t\\n} catch (arg) {\\n\\t\\n}'},
@@ -99,7 +99,7 @@
         blocks: [
          { block: 'var ClassName = function(classVariable) {\\n\\tthis.classVariable = classVariable;\\n};'},
          { block: 'var className1 = new ClassName("classVariable");'},
-         { block: 'ClassName.prototype.logSomething = function() {\\n\\tconsole.log("Something");\\n};'},
+         { block: '(ClassName.prototype).logSomething = function() {\\n\\tconsole.log("Something");\\n};'},
          { block: 'console.log(className1.classVariable);'},
 
         ]

@@ -40,33 +40,28 @@ unless window.ALREADY_LOADED
     })
   '''
 
-  window.editor = null
+  editor = null
 
 # Droplet itself
+#<<<<<<< HEAD
   createEditor = (options) ->
     $('#droplet-editor').html ''
-    editor = new droplet.Editor $('#droplet-editor')[0], options, new Worker '../dist/worker.js'
+    editor = new droplet.Editor $('#droplet-editor')[0], options
+#=======
+#createEditor = (options) ->
+#  $('#droplet-editor').html '<div id="ace-target"></div>'
+#  aceEditor = ace.edit 'ace-target'
+#  editor = new droplet.Editor aceEditor, options
+#>>>>>>> c_support
 
+    editor.setEditorState localStorage.getItem('blocks') is 'yes'
     editor.aceEditor.getSession().setUseWrapMode true
 
     # Initialize to starting text
-    editor.setValueAsync localStorage.getItem('text') ? ''
+    editor.setValue localStorage.getItem('text') ? ''
 
     editor.on 'change', ->
       localStorage.setItem 'text', editor.getValue()
-
-    editor.on 'palettechange', ->
-      $(editor.paletteCanvas.children).each((index) ->
-        title = Array.from(@children).filter((child) -> child.tagName is 'title')[0]
-
-        if title?
-          @removeChild title
-
-          element = $('<div>').html(title.textContent)[0]
-
-      )
-
-    console.log 'assigning window.editor'
 
     window.editor = editor
 
@@ -78,7 +73,7 @@ unless window.ALREADY_LOADED
 
   # Stuff for testing convenience
   $('#update').on 'click', ->
-    createEditor eval localStorage.getItem('config')
+    createEditor eval localStorage.getItem 'config'
 
   configCurrentlyOut = localStorage.getItem('configOut') is 'yes'
 

@@ -29,7 +29,7 @@ namespace DropletExtension
 
         public Process server;
 
-        private static string portNum = "3450";
+        private static string portNum = "3451";
 
         public DropletBrowser()
         {

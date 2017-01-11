@@ -167,7 +167,7 @@ namespace DropletExtension
                     }
 
                     // push that code into palette, then update palette
-                    script = "this.localStorage.setItem('config', `" + palette + "`); update.click()";
+                    script = "this.localStorage.setItem('config', `" + palette + "`); update.click(); toggle.click();";
                     Droplet.Instance.dropletBrowser.chromeBrowser.ExecuteJavaScript(script);
 
                     Droplet.Instance.dropletBrowser.Browser_FinishLoadingFrameEvent(null, null);

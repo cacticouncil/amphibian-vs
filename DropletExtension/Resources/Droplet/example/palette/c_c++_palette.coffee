@@ -65,7 +65,9 @@
         name: 'Controls',
         color: 'orange',
         blocks: [
-
+          { block: 'if (a == b)\\n{\\n\\t\\n}' },
+          { block: 'for (int i = 0; i < 10; i++)\\n{\\n\\t\\n}' },
+          { block: 'while (a == b)\\n{\\n\\t\\n}' },
         ]
       },
 

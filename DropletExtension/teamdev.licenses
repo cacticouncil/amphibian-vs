@@ -1,11 +1,13 @@
 Product: DotNetBrowser
 Version: 1.x
 Licensed to: 
-License type: Evaluation
+License type: Development
 License info: Single-user license
-Expiration date: 02-02-2017
-Generation date: 03-01-2017
+Product binding: Bound to class name
+Product binding info: fg792zs9lt0pywfgzg5uao8bgmarcmuygkzewn3yas2losxe
+Expiration date: NEVER
+Generation date: 10-01-2017
 Platforms: win32/x86;win32/x64
-Company name: NO COMPANY
-SigB: hzrdaquza1gp3js91n86licqbwwwimxi1cee19pnn4ppwi1iax8t7lx69kf72m9c9h4sncc2w8viz97u
-SigA: qy2dqkmucv4trt9v4uk9plufgjtsly0nskex5onnds9rku9fjj3v84qr17ar0zmyiecnndrsa21efwcp
+Company name: Droplet Extention
+SigB: kq0fzadx1shvmeqriqryqgzf0lkcqb628arpql42um7g2mlf58g760fgkhvdtvim6eil5gadefh3h2o8
+SigA: nurkj44yyork3r4mb1alz1od19kd6kciymbau3tszntl3xlptol630r562w9c2pxhhpqyzbp6zzgdsqo
