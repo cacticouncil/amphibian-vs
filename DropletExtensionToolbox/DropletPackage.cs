@@ -38,6 +38,7 @@ namespace DropletExtension
     [PackageRegistration(UseManagedResourcesOnly = true)]
     [InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)] // Info on this package for Help/About
     [ProvideMenuResource("Menus.ctmenu", 1)]
+    [ProvideToolWindow(typeof(Droplet))]
     [Guid(DropletPackage.PackageGuidString)]
     [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "pkgdef, VS and vsixmanifest are valid VS terms")]
     public sealed class DropletPackage : Package
@@ -45,7 +46,7 @@ namespace DropletExtension
         /// <summary>
         /// DropletPackage GUID string.
         /// </summary>
-        public const string PackageGuidString = "235d9bf7-ef6a-4328-9726-83022bc61d94";
+        public const string PackageGuidString = "4aa6e77f-34b3-4d89-929d-c774fa55cb77";
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Droplet"/> class.
@@ -66,7 +67,7 @@ namespace DropletExtension
         /// </summary>
         protected override void Initialize()
         {
-            Droplet.Initialize(this);
+            DropletCommand.Initialize(this);
             base.Initialize();
         }
 

@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
-    <Identity Id="DropletExtension.Jackson Yelinek.c64e0b76-fcca-4125-90db-a590215c5d6a" Version="1.0" Language="en-US" Publisher="Jackson Yelinek" />
-    <DisplayName>DropletExtension</DisplayName>
+    <Identity Id="DropletExtensionToolbox.Jackson Yelinek.0d5fb646-a705-44e5-a5ca-a8f31eb6491f" Version="1.0" Language="en-US" Publisher="Jackson Yelinek" />
+    <DisplayName>DropletExtensionToolbox</DisplayName>
     <Description>Empty VSIX Project.</Description>
   </Metadata>
   <Installation>

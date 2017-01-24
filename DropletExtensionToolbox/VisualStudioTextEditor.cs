@@ -38,8 +38,6 @@ namespace DropletExtension
 
         public static string currentCodeText;
 
-        Timer timer = new Timer(750);
-
         /// <summary>
         /// Initializes a new instance of the <see cref="VisualStudioTextEditor"/> class.
         /// </summary>
@@ -61,32 +59,25 @@ namespace DropletExtension
 
             // if droplet is already open, then set the text right away
             currentCodeText = view.TextBuffer.CurrentSnapshot.GetText();
-            if (Droplet.Instance != null)
+            if (DropletCommand.Instance != null)
             {
-                Droplet.Instance.dropletBrowser.SetText(view.TextBuffer.CurrentSnapshot.GetText());
+                DropletCommand.Instance.dropletBrowser.DropletBrowser.SetText(view.TextBuffer.CurrentSnapshot.GetText());
             }
-            timer.Elapsed += Timer_Elapsed;
         }
 
-        private void Timer_Elapsed(object sender, ElapsedEventArgs e)
-        {
-            timer.Stop();
-            Droplet.Instance.dropletBrowser.SetText(view.TextBuffer.CurrentSnapshot.GetText());
-
-        }
 
         public static void SetVSText()
         {
             // make sure droplet is open
-            if (Droplet.Instance == null)
+            if (DropletCommand.Instance == null)
             {
                 return;
             }
 
             // if droplet isn't active, then there shouldn't be any changes from there to move to VS
-            if (Droplet.Instance.dropletEditorActive == true)
+            if (DropletCommand.Instance.dropletEditorActive == true)
             {
-                string dropletText = Droplet.Instance.dropletBrowser.GetText();
+                string dropletText = DropletCommand.Instance.dropletBrowser.DropletBrowser.GetText();
                 // Debug.WriteLine("SetVSText(): " + dropletText);
                 // this is the best way I know how to set the text in visual studio. not the best, but it works
                 try
@@ -111,12 +102,12 @@ namespace DropletExtension
                 activeWindowFilePath = curDoc.FullName;
 
                 // if droplet isn't open, then there's no point in doing anything else in this function
-                if (Droplet.Instance == null)
+                if (DropletCommand.Instance == null)
                 {
                     return;
                 }
 
-                // 
+                
                 ITextDocument tmpTextDocument;
                 bool propertyNotNull = view.TextBuffer.Properties.TryGetProperty(typeof(ITextDocument), out tmpTextDocument);
                 if (!propertyNotNull)
@@ -129,7 +120,6 @@ namespace DropletExtension
                     return;
                 }
 
-          
 
                 // Check to see if programming language changes, and if it does, change the palette to the new language
                 string newCodeLanguage = curDoc.Language;
@@ -143,15 +133,11 @@ namespace DropletExtension
                 if (currentCodeLanguage != newCodeLanguage)
                 {
                     currentCodeLanguage = newCodeLanguage;
-                    if (Droplet.Instance.dropletEditorActive == false && string.Compare(activeWindowFilePath, tmpFilePath, true) == 0)
-                    {
-                        currentCodeText = view.TextBuffer.CurrentSnapshot.GetText();
-                        //Debug.WriteLine("OnWindowActivated():\n" + vsText);
-                        Droplet.Instance.dropletBrowser.SetText(view.TextBuffer.CurrentSnapshot.GetText());
-                    }
+
                     // read the code from the given palette file for the language
                     string script = string.Empty;
                     string palette = string.Empty;
+                    // idk if this file path will work for others, or just me
                     string filePath = "Resources/Droplet/example/palette/" + newCodeLanguage + "_palette.coffee";
 
                     try
@@ -166,18 +152,16 @@ namespace DropletExtension
                         // That programming language isn't supported yet
                     }
 
-                    // push that code into palette, then update palette
-                    script = "this.localStorage.setItem('config', `" + palette + "`); update.click(); toggle.click();";
-                    Droplet.Instance.dropletBrowser.chromeBrowser.ExecuteJavaScript(script);
 
-                    Droplet.Instance.dropletBrowser.Browser_FinishLoadingFrameEvent(null, null);
-                    timer.Start();
-                }
-                if (Droplet.Instance.dropletEditorActive == false && string.Compare(activeWindowFilePath, tmpFilePath, true) == 0)
-                {
-                    currentCodeText = view.TextBuffer.CurrentSnapshot.GetText();
-                    //Debug.WriteLine("OnWindowActivated():\n" + vsText);
-                    Droplet.Instance.dropletBrowser.SetText(view.TextBuffer.CurrentSnapshot.GetText());
+                    // push that code into palette, then update palette
+                    script = "this.localStorage.setItem('config', `" + palette + "`); update.click();";
+
+                    // then update the code shown in droplet
+                    script += "this.editor.setValue(`" + view.TextBuffer.CurrentSnapshot.GetText() + "`); toggle.click();";
+
+                    DropletCommand.Instance.dropletBrowser.DropletBrowser.chromeBrowser.ExecuteJavaScript(script);
+
+                    DropletCommand.Instance.dropletBrowser.DropletBrowser.Browser_FinishLoadingFrameEvent(null, null);
                 }
             }
         }
@@ -199,7 +183,7 @@ namespace DropletExtension
             {
                 return;
             }
-            if (Droplet.Instance == null)
+            if (DropletCommand.Instance == null)
             {
                 return;
             }
@@ -209,10 +193,10 @@ namespace DropletExtension
                 return;
             }
             // set the new text
-            if (Droplet.Instance.dropletEditorActive == false)
+            if (DropletCommand.Instance.dropletEditorActive == false)
             {
                 currentCodeText = e.NewViewState.EditSnapshot.GetText();
-                Droplet.Instance.dropletBrowser.SetText(e.NewViewState.EditSnapshot.GetText());
+                DropletCommand.Instance.dropletBrowser.DropletBrowser.SetText(e.NewViewState.EditSnapshot.GetText());
             }
 
         }
