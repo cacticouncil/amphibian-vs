@@ -74,7 +74,7 @@ namespace DropletExtension
             startInfo.FileName = "cmd.exe";
 
             // this is very hardcoded for my pc, so I need to fix it
-            startInfo.Arguments = "/C cd C:/My Stuff/Full Sail Classes/Final Project/Droplet Extension/DropletExtensionToolbox/DropletExtensionToolbox/Resources/Droplet && python -m http.server " + portNum;
+            startInfo.Arguments = "/C cd Resources/Droplet && python -m http.server " + portNum;
             server.StartInfo = startInfo;
             server.Start();
         }
