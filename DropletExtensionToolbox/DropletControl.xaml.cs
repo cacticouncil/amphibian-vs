@@ -29,7 +29,7 @@ namespace DropletExtension
 
         public string result;
 
-        private static string portNum = "6719";
+        private static string portNum = "6721";
 
 
 
@@ -45,7 +45,7 @@ namespace DropletExtension
             InitializeDotNetBrowser();
 
 
- 
+
         }
 
 
@@ -73,10 +73,13 @@ namespace DropletExtension
             startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
             startInfo.FileName = "cmd.exe";
 
-            // this is very hardcoded for my pc, so I need to fix it
+            // this seems to work, but I'm not sure if it really works properly
             startInfo.Arguments = "/C cd Resources/Droplet && python -m http.server " + portNum;
             server.StartInfo = startInfo;
             server.Start();
+
+
+
         }
 
 
