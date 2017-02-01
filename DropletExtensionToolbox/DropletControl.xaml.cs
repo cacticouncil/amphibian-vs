@@ -29,7 +29,7 @@ namespace DropletExtension
 
         public string result;
 
-        private static string portNum = "6721";
+        private static string portNum = "6726";
 
 
 
@@ -43,9 +43,6 @@ namespace DropletExtension
             InitializePythonServer();
 
             InitializeDotNetBrowser();
-
-
-
         }
 
 
@@ -57,6 +54,8 @@ namespace DropletExtension
             dropletBrowser.Children.Add((UIElement)browserView.GetComponent());
             chromeBrowser.LoadURL("http://localhost:" + portNum + "/example/example.html");
         }
+
+
         /// <summary>
         /// Handles click on the button by displaying a message box.
         /// </summary>
@@ -70,16 +69,13 @@ namespace DropletExtension
             serverOpen = true;
 
             //this should be set to hidden, but the process doesn't close properly if it is set to hidden
-            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Minimized;
             startInfo.FileName = "cmd.exe";
 
             // this seems to work, but I'm not sure if it really works properly
             startInfo.Arguments = "/C cd Resources/Droplet && python -m http.server " + portNum;
             server.StartInfo = startInfo;
             server.Start();
-
-
-
         }
 
 
