@@ -29,7 +29,7 @@ namespace DropletExtension
 
          
 
-        private static string portNum = "6726";
+        private static string portNum = "6727";
 
 
 
@@ -42,6 +42,7 @@ namespace DropletExtension
 
             InitializePythonServer();
 
+
             InitializeDotNetBrowser();
         }
 
@@ -52,6 +53,17 @@ namespace DropletExtension
             BrowserView browserView = new WPFBrowserView(chromeBrowser);
             browserView.Browser.FinishLoadingFrameEvent += Browser_FinishLoadingFrameEvent;
             dropletBrowser.Children.Add((UIElement)browserView.GetComponent());
+
+            if (server.HasExited == true)
+            {
+                System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+                startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Minimized;
+                startInfo.FileName = "cmd.exe";
+                startInfo.Arguments = "/C cd Resources/Droplet && python -m http.server " + portNum;
+                server.StartInfo = startInfo;
+                server.Start();
+            }
+
             chromeBrowser.LoadURL("http://localhost:" + portNum + "/example/example.html");
         }
 
@@ -68,9 +80,11 @@ namespace DropletExtension
             startInfo.FileName = "cmd.exe";
 
             // this seems to work, but I'm not sure if it really works properly
-            startInfo.Arguments = "/C cd Resources/Droplet && python -m http.server " + portNum;
+            startInfo.Arguments = "/C cd Resources/Droplet && python -m SimpleHTTPServer " + portNum;
             server.StartInfo = startInfo;
             server.Start();
+
+
         }
 
 
