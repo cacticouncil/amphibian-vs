@@ -65,7 +65,7 @@ namespace DropletExtension
             }
         }
 
-
+        // reads in the text from droplet to set the visual studio text
         public static void SetVSText()
         {
             // make sure droplet is open
@@ -94,6 +94,8 @@ namespace DropletExtension
             }
         }
 
+        // when each visual studio file is opened, this function is called
+        // function changes Droplet's programming language and text to whatever the new open file is
         private void OnWindowActivated(Window GotFocus, Window LostFocus)
         {
             if (null != GotFocus.Document)
@@ -107,7 +109,7 @@ namespace DropletExtension
                     return;
                 }
 
-                
+                // get the file path to make sure the current document is the same as the file it's looking for
                 ITextDocument tmpTextDocument;
                 bool propertyNotNull = view.TextBuffer.Properties.TryGetProperty(typeof(ITextDocument), out tmpTextDocument);
                 if (!propertyNotNull)
@@ -166,16 +168,8 @@ namespace DropletExtension
             }
         }
 
-
-        /// <summary>
-        /// Handles whenever the text displayed in the view changes by adding the adornment to any reformatted lines
-        /// </summary>
-        /// <remarks><para>This event is raised whenever the rendered text displayed in the <see cref="ITextView"/> changes.</para>
-        /// <para>It is raised whenever the view does a layout (which happens when DisplayTextLineContainingBufferPosition is called or in response to text or classification changes).</para>
-        /// <para>It is also raised whenever the view scrolls horizontally or when its size changes.</para>
-        /// </remarks>
-        /// <param name="sender">The event sender.</param>
-        /// <param name="e">The event arguments.</param>
+        // anytime the layout changes (scrolling/typing stuff) this function is called
+        // error checking to make sure the droplet text should be updated, and updates the text
         internal void OnLayoutChanged(object sender, TextViewLayoutChangedEventArgs e)
         {
             // make sure things are open

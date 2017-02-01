@@ -27,7 +27,7 @@ namespace DropletExtension
 
         bool serverOpen = false;
 
-        public string result;
+         
 
         private static string portNum = "6726";
 
@@ -45,7 +45,7 @@ namespace DropletExtension
             InitializeDotNetBrowser();
         }
 
-
+        // sets up the browser
         public void InitializeDotNetBrowser()
         {
             chromeBrowser = BrowserFactory.Create();
@@ -55,12 +55,7 @@ namespace DropletExtension
             chromeBrowser.LoadURL("http://localhost:" + portNum + "/example/example.html");
         }
 
-
-        /// <summary>
-        /// Handles click on the button by displaying a message box.
-        /// </summary>
-        /// <param name="sender">The event sender.</param>
-        /// <param name="e">The event args.</param>
+        // sets up the python server
         public void InitializePythonServer()
         {
             server = new System.Diagnostics.Process();
@@ -79,7 +74,7 @@ namespace DropletExtension
         }
 
 
-
+        // sets up the event handlers after the browser has been loaded
         public void Browser_FinishLoadingFrameEvent(object sender, DotNetBrowser.Events.FinishLoadingEventArgs e)
         {
             DOMDocument document = chromeBrowser.GetDocument();
@@ -98,25 +93,30 @@ namespace DropletExtension
                 mouseDownWrapperDiv.ElementAt(i).AddEventListener(DOMEventType.OnKeyUp, DomEventHandlerOnMouseUp, false);
             }
 
+            // close the server after it has been opened and loaded
             if (serverOpen)
             {
                 server.CloseMainWindow();
                 server.Close();
                 serverOpen = false;
             }
-            
+
         }
 
+        // sets the text from Droplet to Visual Studio after one of the Droplet events are triggered
         private void DomEventHandlerOnMouseUp(object sender, DOMEventArgs e)
         {
             VisualStudioTextEditor.SetVSText();
         }
 
+        // returns the text that is in Droplet so that it can set the visual studio text
         public string GetText()
         {
+            string result = string.Empty;
+
             string script = @"(function() 
                 {
-                return this.editor.getValue();
+                    return this.editor.getValue();
                 })(); ";
 
             var tmp = chromeBrowser.ExecuteJavaScriptAndReturnValue(script);
@@ -129,6 +129,7 @@ namespace DropletExtension
             return result;
         }
 
+        // takes in the text from visual studio and pushes it into Droplet
         public void SetText(string code)
         {
             string script = "this.editor.setValue(`" + code + "`);";
@@ -136,6 +137,7 @@ namespace DropletExtension
             chromeBrowser.ExecuteJavaScript(script);
         }
 
+        // these keep a bool of if Droplet has focus or not, so it won't receive anything from visual studio if Droplet is in focus, or vice versa
         private void dropletBrowser_GotFocus(object sender, RoutedEventArgs e)
         {
             DropletCommand.Instance.dropletEditorActive = true;
