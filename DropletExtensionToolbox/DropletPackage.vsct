@@ -31,16 +31,6 @@
     group; your package should define its own command set in order to avoid collisions
     with command ids defined by other packages. -->
 
-    <!-- In this section you can define new menu groups. A menu group is a container for
-         other menus or buttons (commands); from a visual point of view you can see the
-         group as the part of a menu contained between two lines. The parent of a group
-         must be a menu. -->
-    <Groups>
-      <Group guid="guidDropletPackageCmdSet" id="MyMenuGroup" priority="0x0600">
-        <Parent guid="guidSHLMainMenu" id="IDM_VS_MENU_TOOLS"/>
-      </Group>
-    </Groups>
-
     <!--Buttons section. -->
     <!--This section defines the elements the user can interact with, like a menu command or a button
         or combo box in a toolbar. -->
@@ -52,8 +42,8 @@
               <CommandFlag>DefaultInvisible</CommandFlag>
               <CommandFlag>DynamicVisibility</CommandFlag>
           If you do not want an image next to your command, remove the Icon node /> -->
-      <Button guid="guidDropletPackageCmdSet" id="DropletId" priority="0x0100" type="Button">
-        <Parent guid="guidDropletPackageCmdSet" id="MyMenuGroup" />
+      <Button guid="guidDropletPackageCmdSet" id="DropletCommandId" priority="0x0100" type="Button">
+        <Parent guid="guidSHLMainMenu" id="IDG_VS_WNDO_OTRWNDWS1"/>
         <Icon guid="guidImages" id="bmpPic1" />
         <Strings>
           <ButtonText>Droplet</ButtonText>
@@ -68,21 +58,20 @@
             bitmap strip containing the bitmaps and then there are the numeric ids of the elements used
             inside a button definition. An important aspect of this declaration is that the element id
             must be the actual index (1-based) of the bitmap inside the bitmap strip. -->
-      <Bitmap guid="guidImages" href="Resources\Droplet.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough"/>
+      <Bitmap guid="guidImages" href="Resources\DropletCommand.png" usedList="bmpPic1, bmpPic2, bmpPicSearch, bmpPicX, bmpPicArrows, bmpPicStrikethrough"/>
     </Bitmaps>
   </Commands>
 
   <Symbols>
     <!-- This is the package guid. -->
-    <GuidSymbol name="guidDropletPackage" value="{235d9bf7-ef6a-4328-9726-83022bc61d94}" />
+    <GuidSymbol name="guidDropletPackage" value="{4aa6e77f-34b3-4d89-929d-c774fa55cb77}" />
 
     <!-- This is the guid used to group the menu commands together -->
-    <GuidSymbol name="guidDropletPackageCmdSet" value="{1fca9379-e33d-402f-896e-06f828a3b3eb}">
-      <IDSymbol name="MyMenuGroup" value="0x1020" />
-      <IDSymbol name="DropletId" value="0x0100" />
+    <GuidSymbol name="guidDropletPackageCmdSet" value="{3f91a599-5deb-4d51-8d84-833d32494d53}">
+      <IDSymbol name="DropletCommandId" value="0x0100" />
     </GuidSymbol>
 
-    <GuidSymbol name="guidImages" value="{9ee1061b-855e-46d6-ad5f-7b24618f3dde}" >
+    <GuidSymbol name="guidImages" value="{e1d8b6f0-84fe-4e37-ac94-03ee9a52dff4}" >
       <IDSymbol name="bmpPic1" value="1" />
       <IDSymbol name="bmpPic2" value="2" />
       <IDSymbol name="bmpPicSearch" value="3" />

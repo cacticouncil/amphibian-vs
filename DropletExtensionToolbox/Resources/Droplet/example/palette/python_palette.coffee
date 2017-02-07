@@ -88,9 +88,9 @@
         name: 'Controls',
         color: 'green',
         blocks: [
-          { block: 'if a == b:\\n  print \\'This is a conditional statement!\\'' },
-          { block: 'while a == b:\\n  print \\'This is a conditional loop!\\'' },
-          { block: 'for i in list_variable:\\n  print i' },
+          { block: 'if a == b:\\n  print (\\'This is a conditional statement!\\')' },
+          { block: 'while a == b:\\n  print (\\'This is a conditional loop!\\')' },
+          { block: 'for i in list_variable:\\n  print (i)' },
           { block: 'break' },
           { block: 'continue' },
           { block: 'pass' }

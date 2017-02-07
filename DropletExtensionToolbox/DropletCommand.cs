@@ -1,5 +1,5 @@
 ﻿//------------------------------------------------------------------------------
-// <copyright file="Droplet.cs" company="Company">
+// <copyright file="DropletCommand.cs" company="Company">
 //     Copyright (c) Company.  All rights reserved.
 // </copyright>
 //------------------------------------------------------------------------------
@@ -15,7 +15,7 @@ namespace DropletExtension
     /// <summary>
     /// Command handler
     /// </summary>
-    internal sealed class Droplet
+    internal sealed class DropletCommand
     {
         /// <summary>
         /// Command ID.
@@ -25,23 +25,23 @@ namespace DropletExtension
         /// <summary>
         /// Command menu group (command set GUID).
         /// </summary>
-        public static readonly Guid CommandSet = new Guid("1fca9379-e33d-402f-896e-06f828a3b3eb");
+        public static readonly Guid CommandSet = new Guid("3f91a599-5deb-4d51-8d84-833d32494d53");
 
         /// <summary>
         /// VS Package that provides this command, not null.
         /// </summary>
         private readonly Package package;
 
-        public DropletBrowser dropletBrowser;
+        public Droplet dropletBrowser;
 
         public bool dropletEditorActive;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Droplet"/> class.
+        /// Initializes a new instance of the <see cref="DropletCommand"/> class.
         /// Adds our command handlers for menu (commands must exist in the command table file)
         /// </summary>
         /// <param name="package">Owner package, not null.</param>
-        private Droplet(Package package)
+        private DropletCommand(Package package)
         {
             if (package == null)
             {
@@ -54,7 +54,7 @@ namespace DropletExtension
             if (commandService != null)
             {
                 var menuCommandID = new CommandID(CommandSet, CommandId);
-                var menuItem = new MenuCommand(this.MenuItemCallback, menuCommandID);
+                var menuItem = new MenuCommand(this.ShowToolWindow, menuCommandID);
                 commandService.AddCommand(menuItem);
             }
         }
@@ -62,7 +62,7 @@ namespace DropletExtension
         /// <summary>
         /// Gets the instance of the command.
         /// </summary>
-        public static Droplet Instance
+        public static DropletCommand Instance
         {
             get;
             private set;
@@ -85,20 +85,30 @@ namespace DropletExtension
         /// <param name="package">Owner package, not null.</param>
         public static void Initialize(Package package)
         {
-            Instance = new Droplet(package);
+            Instance = new DropletCommand(package);
+            Instance.dropletBrowser = (Droplet)package.FindToolWindow(typeof(Droplet), 0, true);
         }
 
         /// <summary>
-        /// This function is the callback used to execute the command when the menu item is clicked.
-        /// See the constructor to see how the menu item is associated with this function using
-        /// OleMenuCommandService service and MenuCommand class.
+        /// Shows the tool window when the menu item is clicked.
         /// </summary>
-        /// <param name="sender">Event sender.</param>
-        /// <param name="e">Event args.</param>
-        private void MenuItemCallback(object sender, EventArgs e)
+        /// <param name="sender">The event sender.</param>
+        /// <param name="e">The event args.</param>
+        private void ShowToolWindow(object sender, EventArgs e)
         {
-            dropletBrowser = new DropletBrowser();
-            dropletBrowser.Show();
+            // Get the instance number 0 of this tool window. This window is single instance so this instance
+            // is actually the only one.
+            // The last flag is set to true so that if the tool window does not exists it will be created.
+            ToolWindowPane window = this.package.FindToolWindow(typeof(Droplet), 0, true);
+            if ((null == window) || (null == window.Frame))
+            {
+                throw new NotSupportedException("Cannot create tool window");
+            }
+
+            dropletBrowser = (Droplet)window;
+
+            IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
+            Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
         }
     }
 }
