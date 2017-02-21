@@ -30,7 +30,7 @@ namespace DropletExtension
 
          
 
-        private static string portNum = "6728";
+        private static string portNum = "6744";
 
 
 
@@ -68,6 +68,8 @@ namespace DropletExtension
             }
 
             chromeBrowser.LoadURL("http://localhost:" + portNum + "/example/example.html");
+            //chromeBrowser.LoadURL("http://localhost:" + portNum + "");
+
         }
 
         // sets up the python server

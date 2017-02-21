@@ -140,23 +140,26 @@ namespace DropletExtension
                     string script = string.Empty;
                     string palette = string.Empty;
                     // idk if this file path will work for others, or just me
-                    string filePath = "Resources/Droplet/example/palette/" + newCodeLanguage + "_palette.coffee";
-
+                    //string path = "/Resources/Droplet/example/palette/" + newCodeLanguage + "_palette.coffee";
+                    string path = Path.GetDirectoryName(GetType().Assembly.Location);
+                    path += "\\RESOURCES\\DROPLET\\EXAMPLE\\PALETTE\\" + newCodeLanguage + "_PALETTE.COFFEE";
                     try
                     {
-                        using (StreamReader sr = new StreamReader(filePath))
+                        using (StreamReader sr = new StreamReader(path))
                         {
                             palette = sr.ReadToEnd();
+
+                            // push that code into palette, then update palette
+                            script += "this.localStorage.setItem('config', `" + palette + "`); update.click();";
+
+
                         }
                     }
                     catch
                     {
-                        // That programming language isn't supported yet
+                        // That programming language isn't supported yet, so don't change the palette
                     }
 
-
-                    // push that code into palette, then update palette
-                    script = "this.localStorage.setItem('config', `" + palette + "`); update.click();";
 
                     // then update the code shown in droplet
                     script += "this.editor.setValue(`" + view.TextBuffer.CurrentSnapshot.GetText() + "`); toggle.click();";
