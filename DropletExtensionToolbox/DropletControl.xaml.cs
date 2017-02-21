@@ -15,6 +15,7 @@ namespace DropletExtension
     using System.Collections.Generic;
     using DotNetBrowser.DOM.Events;
     using System.Linq;
+    using System.IO;
 
     /// <summary>
     /// Interaction logic for DropletBrowser.
@@ -29,7 +30,7 @@ namespace DropletExtension
 
          
 
-        private static string portNum = "6727";
+        private static string portNum = "6728";
 
 
 
@@ -59,7 +60,9 @@ namespace DropletExtension
                 System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
                 startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Minimized;
                 startInfo.FileName = "cmd.exe";
-                startInfo.Arguments = "/C cd Resources/Droplet && python -m http.server " + portNum;
+                var path = Path.GetDirectoryName(GetType().Assembly.Location);
+                path += "\\RESOURCES\\DROPLET";
+                startInfo.Arguments = "/C cd \"" + path + "\" && python -m http.server " + portNum;
                 server.StartInfo = startInfo;
                 server.Start();
             }
@@ -80,7 +83,9 @@ namespace DropletExtension
             startInfo.FileName = "cmd.exe";
 
             // this seems to work, but I'm not sure if it really works properly
-            startInfo.Arguments = "/C cd Resources/Droplet && python -m SimpleHTTPServer " + portNum;
+            var path = Path.GetDirectoryName(GetType().Assembly.Location);
+            path += "\\RESOURCES\\DROPLET";
+            startInfo.Arguments = "/C cd \"" + path + "\" && python -m SimpleHTTPServer " + portNum;
             server.StartInfo = startInfo;
             server.Start();
 
