@@ -165,6 +165,24 @@ namespace DropletExtension
 
                     DropletCommand.Instance.dropletBrowser.DropletBrowser.Browser_FinishLoadingFrameEvent(null, null);
                 }
+                else
+                {
+                    // make sure things are open
+                    if (activeWindowFilePath == null)
+                    {
+                        return;
+                    }
+                    if (DropletCommand.Instance == null)
+                    {
+                        return;
+                    }
+                    // set the new text
+                    if (DropletCommand.Instance.dropletEditorActive == false)
+                    {
+                        currentCodeText = view.TextBuffer.CurrentSnapshot.GetText();
+                        DropletCommand.Instance.dropletBrowser.DropletBrowser.SetText(view.TextBuffer.CurrentSnapshot.GetText());
+                    }
+                }
             }
         }
 
