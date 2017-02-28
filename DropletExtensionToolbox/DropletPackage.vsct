@@ -23,6 +23,18 @@
   <!--The Commands section is where commands, menus, and menu groups are defined.
       This section uses a Guid to identify the package that provides the command defined inside it. -->
   <Commands package="guidDropletPackage">
+
+    <Menus>
+      <Menu guid="guidDropletPackageCmdSet" id="TopLevelMenu" priority="0x700" type="Menu">
+        <Parent guid="guidSHLMainMenu"
+                id="IDG_VS_MM_TOOLSADDINS" />
+        <Strings>
+          <ButtonText>Droplet Menu</ButtonText>
+          <CommandName>Droplet</CommandName>
+        </Strings>
+      </Menu>
+    </Menus>
+    
     <!-- Inside this section we have different sub-sections: one for the menus, another
     for the menu groups, one for the buttons (the actual commands), one for the combos
     and the last one for the bitmaps used. Each element is identified by a command id that
@@ -30,6 +42,12 @@
     called "command set" and is used to group different command inside a logically related
     group; your package should define its own command set in order to avoid collisions
     with command ids defined by other packages. -->
+
+    <Groups>
+      <Group guid="guidDropletPackageCmdSet" id="MyMenuGroup" priority="0x0600">
+        <Parent guid="guidDropletPackageCmdSet" id="TopLevelMenu"/>
+      </Group>
+    </Groups>
 
     <!--Buttons section. -->
     <!--This section defines the elements the user can interact with, like a menu command or a button
@@ -43,10 +61,10 @@
               <CommandFlag>DynamicVisibility</CommandFlag>
           If you do not want an image next to your command, remove the Icon node /> -->
       <Button guid="guidDropletPackageCmdSet" id="DropletCommandId" priority="0x0100" type="Button">
-        <Parent guid="guidSHLMainMenu" id="IDG_VS_WNDO_OTRWNDWS1"/>
+        <Parent guid="guidDropletPackageCmdSet" id="MyMenuGroup"/>
         <Icon guid="guidImages" id="bmpPic1" />
         <Strings>
-          <ButtonText>Droplet</ButtonText>
+          <ButtonText>Open Droplet Window</ButtonText>
         </Strings>
       </Button>
     </Buttons>
@@ -68,7 +86,9 @@
 
     <!-- This is the guid used to group the menu commands together -->
     <GuidSymbol name="guidDropletPackageCmdSet" value="{3f91a599-5deb-4d51-8d84-833d32494d53}">
+      <IDSymbol name="MyMenuGroup" value="0x1020" />
       <IDSymbol name="DropletCommandId" value="0x0100" />
+      <IDSymbol name="TopLevelMenu" value="0x1021"/>
     </GuidSymbol>
 
     <GuidSymbol name="guidImages" value="{e1d8b6f0-84fe-4e37-ac94-03ee9a52dff4}" >
