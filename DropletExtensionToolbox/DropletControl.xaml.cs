@@ -75,8 +75,9 @@ namespace DropletExtension
 
             serverOpen = true;
 
-            //this should be set to hidden, but the process doesn't close properly if it is set to hidden
-            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Minimized;
+            startInfo.CreateNoWindow = true;
+            //this should be set to hidden, but the process doesn't close properly if it is set to hidden (fixed with above line)
+            //startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Minimized;
             startInfo.FileName = "cmd.exe";
 
             // this seems to work, but I'm not sure if it really works properly
@@ -162,6 +163,9 @@ namespace DropletExtension
             DropletCommand.Instance.dropletEditorActive = false;
         }
 
-
+        //private void dropletBrowser_Unloaded(object sender, RoutedEventArgs e)
+        //{
+        //    //chromeBrowser.Dispose(); //don't use this. This literally did nothing
+        //}
     }
 }
