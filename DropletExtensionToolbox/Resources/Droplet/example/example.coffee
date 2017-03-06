@@ -5,7 +5,7 @@ unless window.ALREADY_LOADED
   dropletConfig.setTheme 'ace/theme/chrome'
   dropletConfig.getSession().setMode 'ace/mode/javascript'
 
-  dropletConfig.setValue localStorage.getItem('config') ? '''
+  dropletConfig.setValue '''
     ({
       "mode": "coffeescript",
       "modeOptions": {
@@ -58,10 +58,7 @@ unless window.ALREADY_LOADED
     editor.aceEditor.getSession().setUseWrapMode true
 
     # Initialize to starting text
-    editor.setValue localStorage.getItem('text') ? ''
-
-    editor.on 'change', ->
-      localStorage.setItem 'text', editor.getValue()
+    editor.setValue ''
 
     window.editor = editor
 

@@ -69,6 +69,10 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Content Include="Resources\Droplet\example\example.html">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Droplet\example\palette\coffeescript_palette.coffee">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -113,10 +117,6 @@
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
     <Content Include="Resources\Droplet\dist\worker.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <IncludeInVSIX>true</IncludeInVSIX>
-    </Content>
-    <Content Include="Resources\Droplet\example\example.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>

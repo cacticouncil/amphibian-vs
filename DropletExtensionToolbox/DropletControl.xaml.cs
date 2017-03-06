@@ -49,6 +49,7 @@ namespace DropletExtension
         // sets up the browser
         public void InitializeDotNetBrowser()
         {
+            BrowserPreferences.SetChromiumSwitches("--remote-debugging-port=6727", "--disable-web-security", "--allow-file-access-from-files");
             chromeBrowser = BrowserFactory.Create();
             BrowserView browserView = new WPFBrowserView(chromeBrowser);
             browserView.Browser.FinishLoadingFrameEvent += Browser_FinishLoadingFrameEvent;
@@ -57,6 +58,8 @@ namespace DropletExtension
             if (server.HasExited == true)
             {
                 System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+                //startInfo.CreateNoWindow = true;
+                //startInfo.UseShellExecute = false;
                 startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Minimized;
                 startInfo.FileName = "cmd.exe";
                 startInfo.Arguments = "/C cd Resources/Droplet && python -m http.server " + portNum;
@@ -64,7 +67,12 @@ namespace DropletExtension
                 server.Start();
             }
 
-            chromeBrowser.LoadURL("http://localhost:" + portNum + "/example/example.html");
+            //Has to get Full path because Chromium LoadURL function does not deal with dynamic paths well at all. (It assumes it is a http link strangley)
+            chromeBrowser.LoadURL(System.IO.Path.GetFullPath("Resources/Droplet/example/example.html"));
+            //System.Diagnostics.Debug.WriteLine(chromeBrowser.GetRemoteDebuggingURL());
+            //chromeBrowser.LoadURL("http://localhost:" + portNum + "/example/example.html");
+            //string contents = System.IO.File.ReadAllText("Resources/Droplet/example/example.html");
+            //chromeBrowser.LoadHTML(contents);
         }
 
         // sets up the python server
@@ -75,9 +83,10 @@ namespace DropletExtension
 
             serverOpen = true;
 
-            startInfo.CreateNoWindow = true;
-            //this should be set to hidden, but the process doesn't close properly if it is set to hidden (fixed with above line)
-            //startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Minimized;
+            //startInfo.CreateNoWindow = true;
+            //startInfo.UseShellExecute = false;
+            //this should be set to hidden, but the process doesn't close properly if it is set to hidden
+            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Minimized;
             startInfo.FileName = "cmd.exe";
 
             // this seems to work, but I'm not sure if it really works properly
@@ -111,8 +120,11 @@ namespace DropletExtension
             // close the server after it has been opened and loaded
             if (serverOpen)
             {
+                //server.Kill();
                 server.CloseMainWindow();
                 server.Close();
+                //server.WaitForExit();
+                //server.Dispose();
                 serverOpen = false;
             }
 
