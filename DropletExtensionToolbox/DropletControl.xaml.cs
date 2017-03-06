@@ -23,7 +23,7 @@ namespace DropletExtension
     {
         public Browser chromeBrowser;
 
-        public System.Diagnostics.Process server;
+        //public System.Diagnostics.Process server;
 
         bool serverOpen = false;
 
@@ -40,7 +40,7 @@ namespace DropletExtension
         {
             this.InitializeComponent();
 
-            InitializePythonServer();
+            //InitializePythonServer();
 
 
             InitializeDotNetBrowser();
@@ -55,17 +55,17 @@ namespace DropletExtension
             browserView.Browser.FinishLoadingFrameEvent += Browser_FinishLoadingFrameEvent;
             dropletBrowser.Children.Add((UIElement)browserView.GetComponent());
 
-            if (server.HasExited == true)
-            {
-                System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-                //startInfo.CreateNoWindow = true;
-                //startInfo.UseShellExecute = false;
-                startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Minimized;
-                startInfo.FileName = "cmd.exe";
-                startInfo.Arguments = "/C cd Resources/Droplet && python -m http.server " + portNum;
-                server.StartInfo = startInfo;
-                server.Start();
-            }
+            //if (server.HasExited == true)
+            //{
+            //    System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+            //    //startInfo.CreateNoWindow = true;
+            //    //startInfo.UseShellExecute = false;
+            //    startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Minimized;
+            //    startInfo.FileName = "cmd.exe";
+            //    startInfo.Arguments = "/C cd Resources/Droplet && python -m http.server " + portNum;
+            //    server.StartInfo = startInfo;
+            //    server.Start();
+            //}
 
             //Has to get Full path because Chromium LoadURL function does not deal with dynamic paths well at all. (It assumes it is a http link strangley)
             chromeBrowser.LoadURL(System.IO.Path.GetFullPath("Resources/Droplet/example/example.html"));
@@ -76,26 +76,26 @@ namespace DropletExtension
         }
 
         // sets up the python server
-        public void InitializePythonServer()
-        {
-            server = new System.Diagnostics.Process();
-            System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-
-            serverOpen = true;
-
-            //startInfo.CreateNoWindow = true;
-            //startInfo.UseShellExecute = false;
-            //this should be set to hidden, but the process doesn't close properly if it is set to hidden
-            startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Minimized;
-            startInfo.FileName = "cmd.exe";
-
-            // this seems to work, but I'm not sure if it really works properly
-            startInfo.Arguments = "/C cd Resources/Droplet && python -m SimpleHTTPServer " + portNum;
-            server.StartInfo = startInfo;
-            server.Start();
-
-
-        }
+        //public void InitializePythonServer()
+        //{
+        //    server = new System.Diagnostics.Process();
+        //    System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
+        //
+        //    serverOpen = true;
+        //
+        //    //startInfo.CreateNoWindow = true;
+        //    //startInfo.UseShellExecute = false;
+        //    //this should be set to hidden, but the process doesn't close properly if it is set to hidden
+        //    startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Minimized;
+        //    startInfo.FileName = "cmd.exe";
+        //
+        //    // this seems to work, but I'm not sure if it really works properly
+        //    startInfo.Arguments = "/C cd Resources/Droplet && python -m SimpleHTTPServer " + portNum;
+        //    server.StartInfo = startInfo;
+        //    server.Start();
+        //
+        //
+        //}
 
 
         // sets up the event handlers after the browser has been loaded
@@ -118,15 +118,15 @@ namespace DropletExtension
             }
 
             // close the server after it has been opened and loaded
-            if (serverOpen)
-            {
-                //server.Kill();
-                server.CloseMainWindow();
-                server.Close();
-                //server.WaitForExit();
-                //server.Dispose();
-                serverOpen = false;
-            }
+            //if (serverOpen)
+            //{
+            //    //server.Kill();
+            //    server.CloseMainWindow();
+            //    server.Close();
+            //    //server.WaitForExit();
+            //    //server.Dispose();
+            //    serverOpen = false;
+            //}
 
         }
 
