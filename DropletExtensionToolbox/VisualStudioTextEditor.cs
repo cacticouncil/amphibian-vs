@@ -126,9 +126,12 @@ namespace DropletExtension
                 // Check to see if programming language changes, and if it does, change the palette to the new language
                 string newCodeLanguage = curDoc.Language;
 
+                //When all is done, optimally this should only have to be the c_c++ option as it will handle BOTH c and c++
+                //But as of right now if you want to test JUST C then switch the comments down below
                 if (newCodeLanguage == "C/C++")
                 {
-                    newCodeLanguage = "c_c++";
+                    newCodeLanguage = "c";
+                    //newCodeLanguage = "c_c++";
                 }
 
                 // currentCodeLanguage keeps getting changed outside of this function, and I can't tell where
@@ -159,6 +162,7 @@ namespace DropletExtension
                     script = "this.localStorage.setItem('config', `" + palette + "`); update.click();";
 
                     // then update the code shown in droplet
+                    //script += "this.editor.setValue(`" + view.TextBuffer.CurrentSnapshot.GetText() + "`);";
                     script += "this.editor.setValue(`" + view.TextBuffer.CurrentSnapshot.GetText() + "`); toggle.click();";
 
                     DropletCommand.Instance.dropletBrowser.DropletBrowser.chromeBrowser.ExecuteJavaScript(script);

@@ -2,9 +2,9 @@
     mode: 'c_cpp',
     modeOptions: {
       functions: {
-
-       }
-     },
+                 
+                 },
+        },
 
     palette: [
       {
@@ -23,9 +23,9 @@
         name: 'Functions',
         color: 'blue',
         blocks: [
-          { block: 'void main()\\n{\\n\\t\\n}' },
+          { block: 'int main()\\n{\\n\\t\\n}' },
           { block: 'void myFunction(void)\\n{\\n\\t\\n}' },
-          { block: 'myFunction();' },
+		  { block: 'void myFunction(void);' },
 
         ]
       },
@@ -47,17 +47,7 @@
         name: 'Operators',
         color: 'yellow',
         blocks: [
-          { block: 'x = x + 1;' },
-          { block: 'x = x - 1;' },
-          { block: 'x = x * 1;' },
-          { block: 'x = x / 1;' },
-          { block: 'x = x % 1;' },
-          { block: 'x = 1;' },
-
-
-          { block: 'delete x;' },
-
-
+		   { block: 'myFunction(b);' }
         ]
       },
 
@@ -65,9 +55,6 @@
         name: 'Controls',
         color: 'orange',
         blocks: [
-          { block: 'if (a == b)\\n{\\n\\t\\n}' },
-          { block: 'for (int i = 0; i < 10; i++)\\n{\\n\\t\\n}' },
-          { block: 'while (a == b)\\n{\\n\\t\\n}' },
         ]
       },
 
@@ -75,7 +62,6 @@
         name: 'Classes',
         color: 'purple',
         blocks: [
-          { block: 'class myClass\\n{\\n\\t\\n}' },
 
         ]
       },

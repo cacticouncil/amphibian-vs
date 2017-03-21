@@ -69,6 +69,7 @@ namespace DropletExtension
 
             //Has to get Full path because Chromium LoadURL function does not deal with dynamic paths well at all. (It assumes it is a http link strangley)
             chromeBrowser.LoadURL(System.IO.Path.GetFullPath("Resources/Droplet/example/example.html"));
+            System.Diagnostics.Debug.WriteLine(chromeBrowser.GetRemoteDebuggingURL());
             //System.Diagnostics.Debug.WriteLine(chromeBrowser.GetRemoteDebuggingURL());
             //chromeBrowser.LoadURL("http://localhost:" + portNum + "/example/example.html");
             //string contents = System.IO.File.ReadAllText("Resources/Droplet/example/example.html");
