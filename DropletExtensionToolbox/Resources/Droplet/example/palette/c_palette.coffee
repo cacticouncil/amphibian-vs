@@ -25,8 +25,9 @@
         blocks: [
           { block: 'int main()\\n{\\n\\t\\n}' },
           { block: 'void myFunction(void)\\n{\\n\\t\\n}' },
+		  { block: 'int myFunction(void)\\n{\\n\\t return 0; \\n}' },
 		  { block: 'void myFunction(void);' },
-
+		  
         ]
       },
 

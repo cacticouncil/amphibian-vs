@@ -54,49 +54,9 @@ namespace DropletExtension
             BrowserView browserView = new WPFBrowserView(chromeBrowser);
             browserView.Browser.FinishLoadingFrameEvent += Browser_FinishLoadingFrameEvent;
             dropletBrowser.Children.Add((UIElement)browserView.GetComponent());
-
-            //if (server.HasExited == true)
-            //{
-            //    System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-            //    //startInfo.CreateNoWindow = true;
-            //    //startInfo.UseShellExecute = false;
-            //    startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Minimized;
-            //    startInfo.FileName = "cmd.exe";
-            //    startInfo.Arguments = "/C cd Resources/Droplet && python -m http.server " + portNum;
-            //    server.StartInfo = startInfo;
-            //    server.Start();
-            //}
-
-            //Has to get Full path because Chromium LoadURL function does not deal with dynamic paths well at all. (It assumes it is a http link strangley)
             chromeBrowser.LoadURL(System.IO.Path.GetFullPath("Resources/Droplet/example/example.html"));
             System.Diagnostics.Debug.WriteLine(chromeBrowser.GetRemoteDebuggingURL());
-            //System.Diagnostics.Debug.WriteLine(chromeBrowser.GetRemoteDebuggingURL());
-            //chromeBrowser.LoadURL("http://localhost:" + portNum + "/example/example.html");
-            //string contents = System.IO.File.ReadAllText("Resources/Droplet/example/example.html");
-            //chromeBrowser.LoadHTML(contents);
         }
-
-        // sets up the python server
-        //public void InitializePythonServer()
-        //{
-        //    server = new System.Diagnostics.Process();
-        //    System.Diagnostics.ProcessStartInfo startInfo = new System.Diagnostics.ProcessStartInfo();
-        //
-        //    serverOpen = true;
-        //
-        //    //startInfo.CreateNoWindow = true;
-        //    //startInfo.UseShellExecute = false;
-        //    //this should be set to hidden, but the process doesn't close properly if it is set to hidden
-        //    startInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Minimized;
-        //    startInfo.FileName = "cmd.exe";
-        //
-        //    // this seems to work, but I'm not sure if it really works properly
-        //    startInfo.Arguments = "/C cd Resources/Droplet && python -m SimpleHTTPServer " + portNum;
-        //    server.StartInfo = startInfo;
-        //    server.Start();
-        //
-        //
-        //}
 
 
         // sets up the event handlers after the browser has been loaded
@@ -117,17 +77,6 @@ namespace DropletExtension
                 mouseDownWrapperDiv.ElementAt(i).AddEventListener(DOMEventType.OnMouseMove, DomEventHandlerOnMouseUp, false);
                 mouseDownWrapperDiv.ElementAt(i).AddEventListener(DOMEventType.OnKeyUp, DomEventHandlerOnMouseUp, false);
             }
-
-            // close the server after it has been opened and loaded
-            //if (serverOpen)
-            //{
-            //    //server.Kill();
-            //    server.CloseMainWindow();
-            //    server.Close();
-            //    //server.WaitForExit();
-            //    //server.Dispose();
-            //    serverOpen = false;
-            //}
 
         }
 
@@ -175,10 +124,5 @@ namespace DropletExtension
         {
             DropletCommand.Instance.dropletEditorActive = false;
         }
-
-        //private void dropletBrowser_Unloaded(object sender, RoutedEventArgs e)
-        //{
-        //    //chromeBrowser.Dispose(); //don't use this. This literally did nothing
-        //}
     }
 }
