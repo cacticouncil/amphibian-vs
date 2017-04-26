@@ -7,11 +7,13 @@
 namespace DropletExtension
 {
     using System.Diagnostics.CodeAnalysis;
+    using System;
     using System.Windows;
     using System.Windows.Controls;
     using DotNetBrowser;
     using DotNetBrowser.WPF;
     using DotNetBrowser.DOM;
+    using System.IO;
     using System.Collections.Generic;
     using DotNetBrowser.DOM.Events;
     using System.Linq;
@@ -27,7 +29,12 @@ namespace DropletExtension
 
         bool serverOpen = false;
 
-         
+        private string basePaletteList = "CoffeeScript|coffeescript_palette.coffee\\n" +
+                                 "JavaScript|javascript_palette.coffee\\n" +
+                                 "Python|python_palette.coffee\\n" +
+                                 "C|c_palette.coffee\\n" +
+                                 "C++|c_c++_palette.coffee";
+
 
         private static string portNum = "6727";
 
@@ -53,6 +60,8 @@ namespace DropletExtension
             chromeBrowser = BrowserFactory.Create();
             BrowserView browserView = new WPFBrowserView(chromeBrowser);
             browserView.Browser.FinishLoadingFrameEvent += Browser_FinishLoadingFrameEvent;
+            browserView.Browser.ConsoleMessageEvent += Browser_ConsoleMessageEvent;
+            browserView.Browser.ExecuteJavaScript("console.error(\"Error message\");");
             dropletBrowser.Children.Add((UIElement)browserView.GetComponent());
             chromeBrowser.LoadURL(System.IO.Path.GetFullPath("Resources/Droplet/example/example.html"));
             System.Diagnostics.Debug.WriteLine(chromeBrowser.GetRemoteDebuggingURL());
@@ -77,7 +86,27 @@ namespace DropletExtension
                 mouseDownWrapperDiv.ElementAt(i).AddEventListener(DOMEventType.OnMouseMove, DomEventHandlerOnMouseUp, false);
                 mouseDownWrapperDiv.ElementAt(i).AddEventListener(DOMEventType.OnKeyUp, DomEventHandlerOnMouseUp, false);
             }
+            chromeBrowser.ExecuteJavaScript("setPalettes('" + basePaletteList + "')");
+        }
 
+        private void Browser_ConsoleMessageEvent(object sender, DotNetBrowser.Events.ConsoleEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("Message from Console:" + e.Message);
+            string palette;
+            if(e.Message.StartsWith("UPDATE "))
+            {
+                string important = e.Message.Split(' ')[1];
+                using (StreamReader sr = new StreamReader("Resources/Droplet/example/palette/" + important))
+                {
+                    palette = sr.ReadToEnd();
+                }
+                chromeBrowser.ExecuteJavaScript("setPalettes('" + basePaletteList + "')");
+                chromeBrowser.ExecuteJavaScript("setSelectedPalette('" + important + "');"); //should re update pallete dropdown... don't know why it doesn't
+                JSValue blah = chromeBrowser.ExecuteJavaScriptAndReturnValue("(function(){return this.editor.getValue()})();");
+                chromeBrowser.ExecuteJavaScript("this.localStorage.setItem('config', `" + palette + "`); update.click();");
+                chromeBrowser.ExecuteJavaScript("this.editor.setValue(`" + blah.GetString() + "`)");
+                Browser_FinishLoadingFrameEvent(null, null);
+            }
         }
 
         // sets the text from Droplet to Visual Studio after one of the Droplet events are triggered
