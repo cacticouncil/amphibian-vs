@@ -133,6 +133,10 @@ namespace DropletExtension
                     newCodeLanguage = "c";
                     //newCodeLanguage = "c_c++";
                 }
+                else if(newCodeLanguage == "JavaScript")
+                {
+                    newCodeLanguage = "javascript";
+                }
 
                 // currentCodeLanguage keeps getting changed outside of this function, and I can't tell where
                 if (currentCodeLanguage != newCodeLanguage)
@@ -157,9 +161,6 @@ namespace DropletExtension
                         // That programming language isn't supported yet
                     }
 
-                    //change the dropdown to display the right thing (doesn't seem to work as of right now. Probs wrong)
-                    DropletCommand.Instance.dropletBrowser.DropletBrowser.chromeBrowser.ExecuteJavaScript("setSelectedPalette('" + newCodeLanguage + "_palette.coffee');");
-
                     // push that code into palette, then update palette
                     script = "this.localStorage.setItem('config', `" + palette + "`); update.click();";
 
@@ -170,6 +171,9 @@ namespace DropletExtension
                     DropletCommand.Instance.dropletBrowser.DropletBrowser.chromeBrowser.ExecuteJavaScript(script);
 
                     DropletCommand.Instance.dropletBrowser.DropletBrowser.Browser_FinishLoadingFrameEvent(null, null);
+
+                    //change the dropdown to display the right thing (doesn't seem to work as of right now. Probs wrong)
+                    DropletCommand.Instance.dropletBrowser.DropletBrowser.chromeBrowser.ExecuteJavaScript("setSelectedPalette('" + newCodeLanguage + "_palette.coffee');");
                 }
                 else
                 {
