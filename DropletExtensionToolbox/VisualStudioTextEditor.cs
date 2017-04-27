@@ -157,6 +157,8 @@ namespace DropletExtension
                         // That programming language isn't supported yet
                     }
 
+                    //change the dropdown to display the right thing (doesn't seem to work as of right now. Probs wrong)
+                    DropletCommand.Instance.dropletBrowser.DropletBrowser.chromeBrowser.ExecuteJavaScript("setSelectedPalette('" + newCodeLanguage + "_palette.coffee');");
 
                     // push that code into palette, then update palette
                     script = "this.localStorage.setItem('config', `" + palette + "`); update.click();";

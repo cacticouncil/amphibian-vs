@@ -101,11 +101,10 @@ namespace DropletExtension
                     palette = sr.ReadToEnd();
                 }
                 chromeBrowser.ExecuteJavaScript("setPalettes('" + basePaletteList + "')");
-                chromeBrowser.ExecuteJavaScript("setSelectedPalette('" + important + "');"); //should re update pallete dropdown... don't know why it doesn't
+                chromeBrowser.ExecuteJavaScript("setSelectedPalette('" + important + "');");
                 JSValue blah = chromeBrowser.ExecuteJavaScriptAndReturnValue("(function(){return this.editor.getValue()})();");
                 chromeBrowser.ExecuteJavaScript("this.localStorage.setItem('config', `" + palette + "`); update.click();");
                 chromeBrowser.ExecuteJavaScript("this.editor.setValue(`" + blah.GetString() + "`)");
-                Browser_FinishLoadingFrameEvent(null, null);
             }
         }
 
