@@ -101,6 +101,8 @@ namespace DropletExtension
             if (null != GotFocus.Document)
             {
                 Document curDoc = GotFocus.Document;
+                Project proj = curDoc.ProjectItem.ContainingProject;
+                PaletteListManager.getPaletteListManager().updatePaletteList(proj);
                 activeWindowFilePath = curDoc.FullName;
 
                 // if droplet isn't open, then there's no point in doing anything else in this function
