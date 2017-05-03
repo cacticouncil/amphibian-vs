@@ -86,7 +86,7 @@ namespace DropletExtension
 
         private void Browser_ConsoleMessageEvent(object sender, DotNetBrowser.Events.ConsoleEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("Message from Console:" + e.Message);
+            //System.Diagnostics.Debug.WriteLine("Message from Console:" + e.Message);
             string palette;
             if(e.Message.StartsWith("UPDATE "))
             {

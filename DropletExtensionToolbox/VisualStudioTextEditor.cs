@@ -174,8 +174,9 @@ namespace DropletExtension
 
                     DropletCommand.Instance.dropletBrowser.DropletBrowser.Browser_FinishLoadingFrameEvent(null, null);
 
-                    //change the dropdown to display the right thing (doesn't seem to work as of right now. Probs wrong)
-                    DropletCommand.Instance.dropletBrowser.DropletBrowser.chromeBrowser.ExecuteJavaScript("setSelectedPalette('" + newCodeLanguage + "_palette.coffee');");
+
+                    //change the dropdown to display the right thing
+                    DropletCommand.Instance.dropletBrowser.DropletBrowser.chromeBrowser.ExecuteJavaScript("setSelectedPalette('Resources/Droplet/example/palette/" + newCodeLanguage + "_palette.coffee');");
                 }
                 else
                 {
