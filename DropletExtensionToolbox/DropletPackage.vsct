@@ -67,6 +67,13 @@
           <ButtonText>Open Droplet Window</ButtonText>
         </Strings>
       </Button>
+      <Button guid="guidDropletPackageCmdSet" id="DropletPaletteId" priority="0x1022" type="Button">
+        <Parent guid="guidDropletPackageCmdSet" id="MyMenuGroup"/>
+        <Icon guid="guidImages" id="bmpPic1" />
+        <Strings>
+          <ButtonText>Create New Palette File</ButtonText>
+        </Strings>
+      </Button>
     </Buttons>
 
     <!--The bitmaps section is used to define the bitmaps that are used for the commands.-->
@@ -89,6 +96,7 @@
       <IDSymbol name="MyMenuGroup" value="0x1020" />
       <IDSymbol name="DropletCommandId" value="0x0100" />
       <IDSymbol name="TopLevelMenu" value="0x1021"/>
+      <IDSymbol name="DropletPaletteId" value="0x1022" />
     </GuidSymbol>
 
     <GuidSymbol name="guidImages" value="{e1d8b6f0-84fe-4e37-ac94-03ee9a52dff4}" >

@@ -101,6 +101,9 @@
     <None Include="Resources\Droplet\example\palette\c_palette.coffee">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Resources\Droplet\example\palette\paletteExample.coffee">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="source.extension.vsixmanifest">
       <SubType>Designer</SubType>
     </None>

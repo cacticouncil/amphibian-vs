@@ -21,6 +21,7 @@ namespace DropletExtension
         /// Command ID.
         /// </summary>
         public const int CommandId = 0x0100;
+        public const int CommandId2 = 0x1022;
 
         /// <summary>
         /// Command menu group (command set GUID).
@@ -56,6 +57,9 @@ namespace DropletExtension
                 var menuCommandID = new CommandID(CommandSet, CommandId);
                 var menuItem = new MenuCommand(this.ShowToolWindow, menuCommandID);
                 commandService.AddCommand(menuItem);
+                var menuCommandID2 = new CommandID(CommandSet, CommandId2);
+                var menuItem2 = new MenuCommand(this.AddPaletteCall, menuCommandID2);
+                commandService.AddCommand(menuItem2);
             }
         }
 
@@ -109,6 +113,13 @@ namespace DropletExtension
 
             IVsWindowFrame windowFrame = (IVsWindowFrame)window.Frame;
             Microsoft.VisualStudio.ErrorHandler.ThrowOnFailure(windowFrame.Show());
+        }
+
+        PaletteListManager PLM = PaletteListManager.getPaletteListManager();
+
+        private void AddPaletteCall(object sender, EventArgs e)
+        {
+            PLM.AddNewPalette();
         }
     }
 }
