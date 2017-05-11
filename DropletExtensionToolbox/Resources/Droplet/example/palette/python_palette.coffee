@@ -91,6 +91,8 @@
           { block: 'if a == b:\\n  print (\\'This is a conditional statement!\\')' },
           { block: 'while a == b:\\n  print (\\'This is a conditional loop!\\')' },
           { block: 'for i in list_variable:\\n  print (i)' },
+		  { block: 'while a == b:\\n  print (\\'This is a conditional loop!\\')\\nelse: print (\\'This is a conditional loop from an else!\\')' },
+          { block: 'for i in list_variable:\\n  print (i)\\nelse: print (-1)' },
           { block: 'break' },
           { block: 'continue' },
           { block: 'pass' }
