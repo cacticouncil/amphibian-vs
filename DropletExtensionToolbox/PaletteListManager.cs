@@ -11,7 +11,7 @@ public class PaletteListManager
 {
     private string basePaletteList = "CoffeeScript|Resources/Droplet/example/palette/coffeescript_palette.coffee\\n" +
                                  "JavaScript|Resources/Droplet/example/palette/javascript_palette.coffee\\n" +
-                                 "Python|Resources/Droplet/example/palette/python_palette.coffee\\n" +
+                                 "Python|Resources/Droplet/example/palette/Python_palette.coffee\\n" +
                                  "C|Resources/Droplet/example/palette/c_palette.coffee\\n" +
                                  "C++|Resources/Droplet/example/palette/c_c++_palette.coffee";
 
