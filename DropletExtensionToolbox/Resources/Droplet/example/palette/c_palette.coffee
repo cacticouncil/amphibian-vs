@@ -56,6 +56,11 @@
         name: 'Controls',
         color: 'orange',
         blocks: [
+            { block: 'if (a == b){\\n\\t\\n}'},
+            { block: 'else if (a == b){\\n\\t\\n}'},
+            { block: 'else {\\n\\t\\n}'},
+            { block: 'while (a == 10){\\n\\t\\n}'},
+            { block: 'for (int i = 0; i < 10; i++){\\n\\t\\n}'},
         ]
       },
 
@@ -63,6 +68,8 @@
         name: 'Classes',
         color: 'purple',
         blocks: [
+
+         { block: 'class MyClass\\n{\\nprivate:\\n\\tint x;\\n\\npublic:\\n\\tmyFunction(b);\\n}' }
 
         ]
       },
@@ -73,10 +80,12 @@
         color: 'black',
         blocks: [
           { block: '// this is a comment' },
+          { block: '#define ' },
           { block: '#define PI 3.14159' },
           { block: '#pragma region RegionName'},
           { block: '#pragma endregion OptionalComment'},
-
+          { block: '#pragma once'},
+          { block: '#if '},
         ]
       },
     ]
